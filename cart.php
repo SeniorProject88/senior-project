@@ -144,7 +144,7 @@ $user_id = $_SESSION['user'][0]['id'];
 								</tbody>
 							</table>
 							<div class="cart-buttons">
-								<button href="" class="boxed-btn black">Check Out</button>
+								<button href="#" class="cart-btn">Check Out</button>
 							</div>
 						</form>
 					
