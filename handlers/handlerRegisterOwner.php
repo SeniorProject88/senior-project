@@ -54,7 +54,9 @@
 
                 }elseif(!maxRange($companyname,20)){
                         $errorss[]= "company name must be less than 20 letters";
-                }
+                }elseif(is_numeric($companyname)){
+                    $errorss[]= "company name must be a string";
+            }
 
                 //Company's ID
                 if(!required($companyid)){
@@ -64,7 +66,10 @@
 
                 }elseif(!maxRange($companyid,20)){
                         $errorss[]= "company name must be less than 20 numbers";
-                }
+                }elseif(!is_numeric($companyid)){
+                    $errorss[]= "company id must be a number";
+            }
+
 
                 //phone validate 
                 if(!required($pphone)){

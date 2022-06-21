@@ -50,7 +50,7 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
 	<style>
-        .id , .role_id , .created_at ,.status , .email , .password{
+        .id , .role_id , .created_at ,.status , .email , .password, .name , .phone{
             display: none;
         }
     </style>

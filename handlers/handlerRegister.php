@@ -65,7 +65,9 @@
 
         }elseif(!maxRange($country,21)){
                 $errors[]= "country must be less than 21 letters";
-        }
+        }elseif(is_numeric($country)){
+            $errors[]= "country must be a string";
+    }
         //state validate 
         if(!required($state)){
             $errors[]= "plz input your state, state is required";
@@ -75,6 +77,10 @@
         }elseif(!maxRange($state,30)){
                 $errors[]= "state must be less than 30 letters";
         }
+        elseif(is_numeric($state)){
+            $errors[]= "state must be a string";
+    }
+
         //zip validate 
         if(!required($zip)){
             $errors[]= "plz input your zip, zip is required";
@@ -83,7 +89,11 @@
 
         }elseif(!maxRange($zip,21)){
                 $errors[]= "zip must be less than 21 numbers";
-        }
+        }elseif(!is_numeric($zip)){
+            $errors[]= "zip must be number";
+    }
+
+
         //address validate 
         if(!required($address)){
             $errors[]= "plz input your address, address is required";
@@ -92,7 +102,10 @@
 
         }elseif(!maxRange($address,30)){
                 $errors[]= "address must be less than 30 letters";
-        }
+        }elseif(is_numeric($address)){
+            $errors[]= "address must be a string";
+    }
+
 
         // Check if the email is exist or not
         $select = mysqli_query($conn, "SELECT * FROM customer WHERE email = '{$email}' ");
