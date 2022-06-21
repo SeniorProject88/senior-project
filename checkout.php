@@ -1,7 +1,20 @@
 <?php
-require_once('./handlers/db.php');
+	require_once('./handlers/db.php');
+	if(!isset($_SESSION)){ 
+		session_start(); 
+	} 
+	if (!isset($_SESSION['user'])) {
+		header("Location: index.php");
+	}else{
+		$user = $_SESSION['user'][0];
+	}
+	//echo "<pre>";
+	//print_r($_SESSION['user']);die;
+
+	$roles = getAll('roles');
 
 	$sponsored=getAll('sponsored');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +49,11 @@ require_once('./handlers/db.php');
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
+	<style>
+        .id , .role_id , .created_at ,.status , .email , .password{
+            display: none;
+        }
+    </style>
 </head>
 <body>
 	
@@ -59,6 +77,15 @@ require_once('./handlers/db.php');
 					<div class="checkout-accordion-wrap">
 						<div class="accordion" id="accordionExample">
 						  <div class="card single-accordion">
+						  <?php 
+                    if(isset($_SESSION['create'])){ ?>
+                        <div class="aletr alert-success h-10 d-flex justify-content-center align-items-center mb-5">
+                            <?= $_SESSION['create']; ?>
+                        </div>
+                    <?php 
+                        unset($_SESSION['create']);    
+                }
+                ?>
 						    <div class="card-header" id="headingOne">
 						      <h5 class="mb-0">
 						        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -70,14 +97,41 @@ require_once('./handlers/db.php');
 						    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
 						      <div class="card-body">
 						        <div class="billing-address-form">
-						        	<form action="index.php">
-						        		<p><input type="text" placeholder="Name"></p>
+						        	<form  method="POST" action="handlers/updateCheckout.php">
+						        	<!--	<p><input type="text" placeholder="Name"></p>
 						        		<p><input type="email" placeholder="Email"></p>
 						        		<p><input type="text" placeholder="Country"></p>
 						        		<p><input type="text" placeholder="State"></p>
 						        		<p><input type="text" placeholder="Zip"></p>
 						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p>
+						        		<p><input type="tel" placeholder="Phone"></p> -->
+										<?php 
+                                                    if(!empty($_SESSION['success'])):
+                                                ?>
+                                                            <div class="alert alert-success">
+                                                                <?= $_SESSION['success']; ?>
+                                                            </div>
+                                                <?php
+                                                    unset($_SESSION['success']) ;
+                                                    endif;
+                                                ?>
+
+                                                <?php 
+                                                    if(!empty($_SESSION['error'])):
+                                                ?>
+                                                            <div class="alert alert-danger">
+                                                                <?= $_SESSION['error']; ?>
+                                                            </div>
+                                                <?php
+                                                    unset($_SESSION['error']) ;
+                                                    endif;
+                                                ?>
+                                                    <?php foreach($user as $key => $value) :?>
+                                                        <div class="form-group <?= $key?>" >
+                                                            <label class=" text-dark text-right fw-bold"><?= $key?></label>
+                                                            <input type="text" class="form-control" name="<?= $key?>" value="<?= $value?>">
+                                                        </div>
+                                                    <?php endforeach;?>
 						        	</form>
 						        </div>
 						      </div>
@@ -97,15 +151,15 @@ require_once('./handlers/db.php');
 									<div class="mb-4">
 										<div class="custom-control custom-radio">
 											<input id="shippingOption1" name="shipping-option" class="custom-control-input" checked="checked" type="radio">
-											<label class="custom-control-label" for="shippingOption1">Standard Delivery</label> <span class="float-right font-weight-bold">FREE</span> </div>
+											<label class="custom-control-label" for="shippingOption1">Standard Delivery</label> <span class="float-right font-weight-bold"></span> </div>
 										<div class="ml-4 mb-2 small">(3-7 business days)</div>
 										<div class="custom-control custom-radio">
 											<input id="shippingOption2" name="shipping-option" class="custom-control-input" type="radio">
-											<label class="custom-control-label" for="shippingOption2">Express Delivery</label> <span class="float-right font-weight-bold">$10.00</span> </div>
+											<label class="custom-control-label" for="shippingOption2">Express Delivery</label> <span class="float-right font-weight-bold"></span> </div>
 										<div class="ml-4 mb-2 small">(2-4 business days)</div>
 										<div class="custom-control custom-radio">
 											<input id="shippingOption3" name="shipping-option" class="custom-control-input" type="radio">
-											<label class="custom-control-label" for="shippingOption3">Next Business day</label> <span class="float-right font-weight-bold">$20.00</span> </div>
+											<label class="custom-control-label" for="shippingOption3">Next Business day</label> <span class="float-right font-weight-bold"></span> </div>
 									</div>
 						        </div>
 						      </div>
@@ -181,39 +235,31 @@ require_once('./handlers/db.php');
 
 				<div class="col-lg-4">
 					<div class="order-details-wrap">
-						<table class="order-details">
-							<thead>
-								<tr>
-									<th>Your order Details</th>
+					<table class="total-table">
+							<thead class="total-table-head">
+								<tr class="table-total-row">
+									<th>Total</th>
 									<th>Price</th>
 								</tr>
 							</thead>
-							<tbody class="order-details-body">
-								<tr>
-									<td>Product</td>
-									<td>Total</td>
+							<tbody>
+								<tr class="total-data">
+									<td><strong>Products: </strong></td>
+									<td class="total-price"><span></span>$</td>
 								</tr>
-								
-							</tbody>
-							<tbody class="checkout-details">
-								
-								<tr>
-									<td>Shipping</td>
-									<td>$</td>
+								<tr class="total-data">
+									<td><strong>Shipping: </strong></td>
+									<td class="shipping-price"><span>30</span>$</td>
 								</tr>
-								<tr>
-									<td>Coupon Discount</td>
-									<td>$</td>
-								</tr>
-								<tr>
-									<td>Total</td>
-									<td>$</td>
+								<tr class="total-data">
+									<td><strong>Total: </strong></td>
+									<td class="total-with-shipping"><span></span>$</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="text-center mt-5">
-                                <button name="addOrder" type="submit" class="boxed-btn btn btn-primary">Place Order</button>
-                            </div>
+						<div class="cart-buttons">
+							<a href="addOrder.php" class="boxed-btn black">Place Order</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -242,7 +288,36 @@ require_once('./handlers/db.php');
 	<!-- footer -->
 		<?php require_once("./layouts/footer.php")?>
 	<!-- end footer -->
-	
+	<script>
+		let products = <?= json_encode($products)?>;
+
+		function getTotal(id){
+
+			let quantity = $(`.count-${id}`).val() ;
+			let price = $(`.price-${id}`).val();
+			$(`.product-total-${id} span`).html(quantity * price)
+
+			let totals = []
+			products.forEach( x => {
+				totals.push($(`.product-total-${x.id} span`).html())
+			})
+			$('.total-price span').html(totalPrice(totals)) 
+
+
+
+			
+			$('.total-with-shipping span').html(parseInt($('.total-price span').html()) + parseInt($('.shipping-price span').html()))
+		}
+
+		function totalPrice(prices){
+			let sum = 0
+			for(let i =0 ; i < prices.length ; i++){
+				sum += parseInt(prices[i]);
+			}
+			return sum;
+		}
+	</script>
+
 	<!-- js files -->
 	<?php require_once("./layouts/scripts.php")?>
 </body>

@@ -19,8 +19,10 @@ if(isset($_SESSION['cart'])){
   $_SESSION['cart'][$productID] = $product;
 }else{
     $_SESSION['cart'] = [];
-    $_SESSION['cart'][$productID] = $product;
-}
+    $_SESSION['cart'][$productID] = $product;       
+                } 
+                
+
 
 
 $_SESSION['successAddToCart'] ="add to cart ";
