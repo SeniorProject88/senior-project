@@ -18,7 +18,9 @@
 
                 }elseif(!maxRange($pname,20)){
                         $errorss[]= "name must be less than 20 letters";
-                }
+                }elseif(is_numeric($pname)){
+                    $errorss[]= "name must be a string";
+            }
 
                 //email validate 
                 if(!required($pemail)){
@@ -72,7 +74,10 @@
 
                 }elseif(!maxRange($pphone,30)){
                         $errorss[]= "phone must be less than 21 numbers";
-                }
+                }elseif(!is_numeric($pphone)){
+                    $errorss[]= "phone must be number";
+            }
+
                   // Check if the email is exist or not
                 $select = mysqli_query($conn, "SELECT * FROM product_owners WHERE email = '{$pemail}' ");
                 if (mysqli_num_rows($select)) {

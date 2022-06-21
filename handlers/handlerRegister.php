@@ -18,6 +18,9 @@
         }elseif(!maxRange($name,20)){
                 $errors[]= "name must be less than 20 letters";
         }
+        elseif(is_numeric($name)){
+            $errors[]= "name must be a string";
+    }
 
         //email validate 
         if(!required($email)){
@@ -49,7 +52,9 @@
 
         }elseif(!maxRange($phone,30)){
                 $errors[]= "phone must be less than 21 numbers";
-        }
+        }elseif(!is_numeric($phone)){
+            $errors[]= "phone must be number";
+    }
 
 
         //country validate 

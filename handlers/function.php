@@ -27,6 +27,13 @@ function maxRange($input,$length){
         return true;
     }
 }
+function positive($input){
+    if($input<0){
+        return false;
+    }else{
+        return true;
+    }
+}
 
 function emailvalidate($email){
     if(filter_var($email,FILTER_VALIDATE_EMAIL)){

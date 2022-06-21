@@ -183,6 +183,7 @@ require_once('handlers/db.php');
                                         unset($_SESSION['errorss']) ;
                                         endif;
                                     ?>
+                                    
                                     <form action="handlers/handlerRegisterOwner.php" class="owner-form" method="post">				
                                         <div class="row">
                                             <div class="col-md-6">

@@ -102,7 +102,7 @@
     }
 
 
-    if (isset($_POST['addProduct'])){  
+   /* if (isset($_POST['addProduct'])){  
         $img=$_FILES['img'];
         $imgName=$img['name'];
         $imgTmpName=$img['tmp_name'];
@@ -123,7 +123,7 @@
         " '$name','$price','$imgNewNameDB','$description','$Expire_Date','$owner_id' ,'$category_id' "
         ,"addproduct.php");
         move_uploaded_file($imgTmpName,"../assets/img/products/$imgNewName");
-    }
+    } */
 
     if (isset($_POST['addTeam'])){  
         $img=$_FILES['img'];

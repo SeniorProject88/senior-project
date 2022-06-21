@@ -60,20 +60,34 @@
 		<div class="myorder">
 		<div class="container py-5">
         <div class="row">
-
             <div class="col-md-6 offset-md-3">
-                <?php 
-                    if(isset($_SESSION['create'])){ ?>
-                        <div class="aletr alert-success h-10 d-flex justify-content-center align-items-center mb-5">
-                            <?= $_SESSION['create']; ?>
-                        </div>
-                    <?php 
-                        unset($_SESSION['create']);    
-                }
-                ?>
+            <?php  if(isset($_SESSION['create'])){ ?>
+       <div class="aletr alert-success h-10 d-flex justify-content-center align-items-center mb-5">
+           <?= $_SESSION['create']; ?>
+         </div>
+         <?php 
+          unset($_SESSION['create']);    
+             }
+          ?>
                 <div class="card w-auto">
+               
                     <div class="card-body p-5">
-                        <form action="handlers/db.php" method="post" enctype="multipart/form-data">
+                        
+                    <?php 
+                                        if(!empty($_SESSION['errors'])){
+                                            foreach($_SESSION['errors'] as $error):
+                                    ?>
+                                                <div class="alert alert-danger">
+                                                        <?= $error; ?>
+                                                </div>
+                                                
+                                    <?php
+                                            endforeach;
+                                            unset($_SESSION['errors']) ;
+                                        }
+                                       ?>
+                                    
+                        <form action="handlers/handelAddProduct.php" method="post" enctype="multipart/form-data">
 														<h3 class="mb-3 text-dark">Add Your Product</h3>
                             <div class="form-group">
                                 <label class=" text-dark">Products Image</label>
@@ -106,7 +120,7 @@
                                 </select>
                             </div>
                             <div class="text-center mt-5">
-                                <button name="addProduct" type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
                             </div>
                                 <input type="hidden" name="owner_id" value="<?= $_SESSION['user'][0]['id']?>">
                         </form>
