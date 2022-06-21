@@ -11,6 +11,7 @@ if (!isset($_SESSION['user'])) {
 $roles = getAll('roles');
 $products=getAll('products');
 $categorys=getWhere('categorys', 'status = 1');
+$user_id = $_SESSION['user'][0]['id'];
 // echo "<pre>";
 // print_r($_SESSION['cart']);
 // die;
@@ -82,23 +83,26 @@ $categorys=getWhere('categorys', 'status = 1');
 								</tr>
 							</thead>
 							<tbody>
-								<?php if(isset($_SESSION['cart'])){ 
-								foreach($_SESSION['cart'] as $i => $product):
-								?>
-								
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="deleteFromCart.php?id=<?=$i?>"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="<?= $product[0]['img']?>" alt="" ></td>
-									<td class="product-name"><?= $product[0]['name']?></td>
-									<td class="product-price"><?= $product[0]['price']?>$</td>
-									<td class="product-quantity">
-										<input type="number" class="count-<?= $product[0]['id']?>" onchange="getTotal(<?= $product[0]['id']?>)" 	placeholder="0" min="1" >
-									</td>  
-									<input type="hidden" class="price-<?= $product[0]['id']?>" value="<?= $product[0]['price']?>"> 
-									<td class="product-total-<?= $product[0]['id']?> total-order"><span>0</span>$</td>
-								</tr>
 								<?php 
-								endforeach;
+								if(!empty($_SESSION['cart'])){ 
+									foreach($_SESSION['cart'] as $i => $product):
+								?>
+									<?php if(!empty($product[$user_id][0])){?>
+											<tr class="table-body-row">
+												<td class="product-remove"><a href="deleteFromCart.php?id=<?=$i?>"><i class="far fa-window-close"></i></a></td>
+												<td class="product-image"><img src="<?= $product[$user_id][0]['img']?>" alt="" ></td>
+												<td class="product-name"><?= $product[$user_id][0]['name']?></td>
+												<td class="product-price"><?= $product[$user_id][0]['price']?>$</td>
+												<td class="product-quantity">
+													<input type="number" class="count-<?= $product[$user_id][0]['id']?>" onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="0" min="1" >
+												</td>  
+												<input type="hidden" class="price-<?= $product[$user_id][0]['id']?>" value="<?= $product[$user_id][0]['price']?>"> 
+												<td class="product-total-<?= $product[$user_id][0]['id']?> total-order"><span>0</span>$</td>
+											</tr>
+									<?php }?>
+
+											<?php
+									endforeach;
 								}else{
 									echo  "no products in cart";
 								} ?>
@@ -177,6 +181,7 @@ $categorys=getWhere('categorys', 'status = 1');
 			products.forEach( x => {
 				totals.push($(`.product-total-${x.id} span`).html())
 			})
+			totals = totals.filter( Number );
 			$('.total-price span').html(totalPrice(totals)) 
 
 
