@@ -113,7 +113,9 @@ $user_id = $_SESSION['user'][0]['id'];
 
 				<div class="col-lg-4">
 					<div class="total-section">
-						<table class="total-table">
+
+						<form action="handlers/checkout.php"" method="POST">
+							<table class="total-table">
 							<thead class="total-table-head">
 								<tr class="table-total-row">
 									<th>Total</th>
@@ -121,23 +123,31 @@ $user_id = $_SESSION['user'][0]['id'];
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="total-data">
-									<td><strong>Products: </strong></td>
-									<td class="total-price"><span></span>$</td>
-								</tr>
-								<tr class="total-data">
-									<td><strong>Shipping: </strong></td>
-									<td class="shipping-price"><span>30</span>$</td>
-								</tr>
-								<tr class="total-data">
-									<td><strong>Total: </strong></td>
-									<td class="total-with-shipping"><span></span>$</td>
-								</tr>
-							</tbody>
-						</table>
-						<div class="cart-buttons">
-							<a href="checkout.php" class="boxed-btn black">Check Out</a>
-						</div>
+									<tr class="total-data">
+										<td><strong>Products: </strong></td>
+										<td class="total-price">
+											<input type="hidden" name="total_price" value="">
+											<span></span>$
+										</td>
+									</tr>
+									<tr class="total-data">
+										<td><strong>Shipping: </strong></td>
+										<td class="shipping-price"><span>30</span>$</td>
+									</tr>
+									<tr class="total-data">
+										<td><strong>Total: </strong></td>
+										<td class="total-with-shipping">
+											<input type="hidden" name="total_with_shipping" value="">
+											<span></span>$
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="cart-buttons">
+								<button href="" class="boxed-btn black">Check Out</button>
+							</div>
+						</form>
+					
 					</div>
 				</div>
 			</div>
@@ -183,11 +193,12 @@ $user_id = $_SESSION['user'][0]['id'];
 			})
 			totals = totals.filter( Number );
 			$('.total-price span').html(totalPrice(totals)) 
-
+			$('.total-price input').val(totalPrice(totals))
 
 
 			
 			$('.total-with-shipping span').html(parseInt($('.total-price span').html()) + parseInt($('.shipping-price span').html()))
+			$('.total-with-shipping input').val(parseInt($('.total-price span').html()) + parseInt($('.shipping-price span').html()))
 		}
 
 		function totalPrice(prices){

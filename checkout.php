@@ -8,8 +8,8 @@
 	}else{
 		$user = $_SESSION['user'][0];
 	}
-	//echo "<pre>";
-	//print_r($_SESSION['user']);die;
+	// echo "<pre>";
+	// print_r($_SESSION);die;
 
 	$roles = getAll('roles');
 
@@ -245,7 +245,7 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Products: </strong></td>
-									<td class="total-price"><span></span>$</td>
+									<td class="total-price"><span><?= !empty($_SESSION['total-amount'])?$_SESSION['total-amount']['total_price'] : "" ?></span>$</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Shipping: </strong></td>
@@ -253,7 +253,7 @@
 								</tr>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td class="total-with-shipping"><span></span>$</td>
+									<td class="total-with-shipping"><span><?= !empty($_SESSION['total-amount'])?$_SESSION['total-amount']['total_with_shipping'] : "" ?></span>$</td>
 								</tr>
 							</tbody>
 						</table>
