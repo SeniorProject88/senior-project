@@ -68,6 +68,9 @@
                         <?php }?>
                         <li>
                             <div class="header-icons">
+                            <?php if(isset($role_name)) {?>
+                                <?php if ($role_name == "customer") {
+                            ?>
                             <i> <a class="shopping-cart" href="cart.php">
                                 <i class="fas fa-shopping-cart"></i>
                                 <span class="badge badge-danger">
@@ -79,6 +82,9 @@
                                 </span>
                                 </a>
                             </i>
+                            <?php
+                        }?>
+                            <?php }?>
                             <!-- <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a> -->
                                 <i>	<a class="login" href="login.php"><i class="fas fa-user"></i></a>
                                     <ul class="sub-menu">
