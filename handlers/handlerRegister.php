@@ -35,14 +35,21 @@
         }*/
 
         //password validate 
-        if(!required($password)){
-            $errors[]= "plz input your password, password is required";
-        }elseif(!minRange($password,4)){
-            $errors[]= "password must be larger than 4 letters and numbers";
-
-        }elseif(!maxRange($password,30)){
-            $errors[]= "password must be less than 30 letters and numbers";
-        }
+       
+        if(empty($password)){
+            $errors[]="password is required";
+            }elseif(strlen($password)>30){
+                $errors[]="password is too large";
+            }elseif(!preg_match("#[0-9]+#",$password)) {
+                $errors[] = "Your Password Must Contain At Least 1 Number!";
+            }
+            elseif(!preg_match("#[A-Z]+#",$password)) {
+                $errors[] = "Your Password Must Contain At Least 1 Capital Letter!";
+            }
+            elseif(!preg_match("#[a-z]+#",$password)) {
+                $errors[] = "Your Password Must Contain At Least 1 Lowercase Letter!";
+            }
+    
 
         //phone validate 
         if(!required($phone)){

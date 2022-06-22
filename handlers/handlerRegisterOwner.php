@@ -35,14 +35,19 @@
                 }
 
                 //password validate 
-                if(!required($ppassword)){
-                    $errorss[]= "plz input your password, password is required";
-                }elseif(!minRange($ppassword,4)){
-                    $errorss[]= "password must be larger than 4 letters and numbers";
-
-                }elseif(!maxRange($ppassword,30)){
-                        $errorss[]= "password must be less than 30 letters and numbers";
-                }
+                if(empty($ppassword)){
+                    $errors[]="password is required";
+                    }elseif(strlen($ppassword)>30){
+                        $errors[]="password is too large";
+                    }elseif(!preg_match("#[0-9]+#",$ppassword)) {
+                        $errors[] = "Your Password Must Contain At Least 1 Number!";
+                    }
+                    elseif(!preg_match("#[A-Z]+#",$ppassword)) {
+                        $errors[] = "Your Password Must Contain At Least 1 Capital Letter!";
+                    }
+                    elseif(!preg_match("#[a-z]+#",$ppassword)) {
+                        $errors[] = "Your Password Must Contain At Least 1 Lowercase Letter!";
+                    }
 
 
 

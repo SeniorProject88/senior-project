@@ -94,7 +94,8 @@ $user_id = $_SESSION['user'][0]['id'];
 												<td class="product-name"><?= $product[$user_id][0]['name']?></td>
 												<td class="product-price"><?= $product[$user_id][0]['price']?>$</td>
 												<td class="product-quantity">
-													<input type="number" class="count-<?= $product[$user_id][0]['id']?>" onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="0" min="1" >
+													<input type="number" class="count-<?= $product[$user_id][0]['id']?>" 
+													onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="0" min="1" onkeydown="return false">
 												</td>  
 												<input type="hidden" class="price-<?= $product[$user_id][0]['id']?>" value="<?= $product[$user_id][0]['price']?>"> 
 												<td class="product-total-<?= $product[$user_id][0]['id']?> total-order"><span>0</span>$</td>

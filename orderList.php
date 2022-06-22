@@ -123,8 +123,8 @@ $orders=getAll('orders');
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
                     <form method = "POST" >
                         <h2 class="text-center bg-light">Orders list</h2>
-                        <div class="tm-bg-primary-dark tm-block tm-block-products">
-                            <div class="tm-product-table-container">
+                        <div class=" dana">
+                            <div class=" dana">
                                 
                                 <table class="table table-hover tm-table-small tm-product-table">
                                     <thead>
@@ -141,7 +141,7 @@ $orders=getAll('orders');
                            
                                     <?php foreach($orders as $order):?>
                                         <tr>
-                                            <th scope="row"><input type="checkbox" name="product[]" value="<?= $product['id']?>" /></th>
+                                            <th scope="row"><input type="checkbox" name="order[]" value="<?= $order['id']?>" /></th>
                                             <td class="tm-product-name text-white"><?= $order['id']?></td>
                                             <td class="text-white"><?= $order['total_price']?>$</td>
                                             <td class="text-white"><?= $order['datetime']?></td>

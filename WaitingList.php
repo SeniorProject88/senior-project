@@ -57,7 +57,11 @@ $categorys=getWhere('categorys', 'status = 1');
         https://templatemo.com/tm-524-product-admin
     -->
 
-
+    <style>
+    .body{
+        max-width: 10000px;
+    }
+    </style>
 </head>
 <body>
 <?php 
@@ -126,8 +130,8 @@ $categorys=getWhere('categorys', 'status = 1');
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
                     <form method = "POST" >
                         <h2 class="text-center bg-light">waiting list</h2>
-                        <div class="tm-bg-primary-dark tm-block tm-block-products">
-                            <div class="tm-product-table-container">
+                        <div class="dana ">
+                            <div class="dana">
                                 
                                 <table class="table table-hover tm-table-small tm-product-table">
                                     <thead>
