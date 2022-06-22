@@ -2,6 +2,7 @@
     session_start();
     require('function.php') ;
     require('db.php') ;
+   
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $data = $_SESSION;
 
@@ -30,10 +31,13 @@
     }
 
         //expire_date validate  
+        $date = date('20y-m-d');
         if(!required($expire_date)){
             $errors[]= " expire_date is required";
+        }elseif($expire_date <= $date){
+            $errors[]= "Expired!";
         }
-
+       
         //category_id validate  
         if(!required($category_id)){
             $errors[]= " category is required";
