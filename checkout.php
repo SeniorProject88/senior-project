@@ -258,7 +258,7 @@
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a href="addOrder.php" class="boxed-btn black">Place Order</a>
+							<a href="handlers/addOrder.php" class="boxed-btn black">Place Order</a>
 						</div>
 					</div>
 				</div>
