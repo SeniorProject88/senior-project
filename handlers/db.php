@@ -250,5 +250,18 @@
         }
     }
 }
+    function getProductsByOrder($order_id){
+        global $conn;
+        $getAll = "SELECT products.id , products.name , products.price , products.description , products.img
+                    FROM products
+                    JOIN order_products 
+                    ON products.id =order_products.product_id
+                    JOIN orders
+                    ON order_products.order_id = $order_id";
+                    
+        $getAll = mysqli_query($conn,$getAll);
+        $getAllData = mysqli_fetch_all($getAll,MYSQLI_ASSOC);
 
+        return $getAllData;
+    }
 ?>

@@ -1,8 +1,12 @@
 <?php 
 require_once('handlers/db.php');
 require_once('handlers/data.php');
-$orders=getAll('orders');
-$customer=getAll('customer');
+
+
+$deleivery_id = $_SESSION['user'][0]['id'];
+
+$orders = getWhere('orders' , "delivery_id = $deleivery_id");
+
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +20,8 @@ $customer=getAll('customer');
 	<!-- title -->
 	<title>OrderList</title>
 
-	  <!-- favicon -->
-      <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
@@ -53,68 +57,68 @@ $customer=getAll('customer');
     <link rel="stylesheet" href="assets/css/templatemo-style.css">
     
     <!--
-         Product Admin CSS Template
+        Product Admin CSS Template
         https://templatemo.com/tm-524-product-admin
     -->
 
 
 </head>
 <body>
-    <?php 
-            global $conn ;
-            $JoinOrder = "SELECT customer.name , customer.name , customer.phone , 
-            customer.name , customer.country , customer.zip , customer.state, orders.id , orders.total_price , orders.datetime 
-             FROM `customer` INNER JOIN `orders` ON id = customer_id ";
-            $JoinOrder = mysqli_query($conn, $JoinOrder);
-            $getJoinData = mysqli_fetch_all( $JoinOrder,MYSQLI_ASSOC); 
-            return $getJoinData;
-        ?>
+    <!-- <?php 
+            // global $conn ;
+            // $JoinOrder = "SELECT customer.name , customer.name , customer.phone , 
+            // customer.name , customer.country , customer.zip , customer.state, orders.id , orders.total_price , orders.datetime 
+            // FROM `customer` INNER JOIN `orders` ON id = customer_id ";
+            // $JoinOrder = mysqli_query($conn, $JoinOrder);
+            // $getJoinData = mysqli_fetch_all( $JoinOrder,MYSQLI_ASSOC); 
+            // return $getJoinData;
+        ?> -->
 
 <?php 
- function GoToPage($page)
- {
+function GoToPage($page)
+{
     header('Location: '.$page);
- }
-      if(isset($_POST['approve'])) 
-           {
+}
+    if(isset($_POST['approve'])) 
+        {
             $order_id=$_POST['order_id'];
             require_once('handlers/connect.php');
-             $myQuery = mysqli_query($conn,"UPDATE orders SET status=1 where id=".$order_id ) 
-             or die(mysqli_error($conn) );                                    
-             GoToPage("orderList.php");     
-   } 
-              else if(isset($_POST['delete'])) 
-               {
-                $order_id=$_POST['order_id'];
-                 require_once('handlers/connect.php');
-              $myQuery = mysqli_query($conn,"UPDATE orders SET status=0 where id=".$order_id ) 
+            $myQuery = mysqli_query($conn,"UPDATE orders SET status=1 where id=".$order_id ) 
             or die(mysqli_error($conn) );                                    
-             GoToPage("orderList.php");
-             } 
-             if( isset($_POST['approveAll']) && !empty($_POST['order']) ) {
+            GoToPage("orderList.php");     
+} 
+            else if(isset($_POST['delete'])) 
+            {
+                $order_id=$_POST['order_id'];
+                require_once('handlers/connect.php');
+                $myQuery = mysqli_query($conn,"UPDATE orders SET status=0 where id=".$order_id ) 
+                or die(mysqli_error($conn) );                                    
+                GoToPage("orderList.php");
+            } 
+            if( isset($_POST['approveAll']) && !empty($_POST['order']) ) {
                                                 
-               foreach($_POST['order'] as $prod) {
-                 $myQuery = mysqli_query($conn,"UPDATE orders SET status=1 where id=".$prod ) 
-                     or die(mysqli_error($conn) );                                                                         
-                    }
-                 GoToPage("orderList.php");
+                    foreach($_POST['order'] as $prod) {
+                        $myQuery = mysqli_query($conn,"UPDATE orders SET status=1 where id=".$prod ) 
+                            or die(mysqli_error($conn) );                                                                         
+                            }
+                        GoToPage("orderList.php");
                     }
 
-               else if( isset($_POST['deleteAll']) && !empty($_POST['order']) ) {
-                 foreach($_POST['order'] as $prod) {
-                  $myQuery = mysqli_query($conn,"UPDATE orders SET status=0 where id=".$prod ) 
-                   or die(mysqli_error($conn) );                                                                                      
+            else if( isset($_POST['deleteAll']) && !empty($_POST['order']) ) {
+                    foreach($_POST['order'] as $prod) {
+                    $myQuery = mysqli_query($conn,"UPDATE orders SET status=0 where id=".$prod ) 
+                    or die(mysqli_error($conn) );                                                                                      
+                    }
+                    GoToPage("orderList.php");
                 }
-                  GoToPage("orderList.php");
-                   }
                         ?>
 	
 	<!--PreLoader-->
-    <div class="loader">
+    <!-- <div class="loader">
         <div class="loader-inner">
             <div class="circle"></div>
         </div>
-    </div>
+    </div> -->
     <!--PreLoader Ends-->
 	
 	<!-- navbar -->
@@ -150,34 +154,44 @@ $customer=getAll('customer');
                                             <th class="text-white" scope="col">address</th>
                                             <th class="text-white" scope="col">Total price</th>
                                             <th class="text-white" scope="col">Order Date</th>
+                                            <th class="text-white" scope="col">Products</th>     
                                             <th class="text-white" scope="col">Actions</th>     
                                         </tr>
                                     </thead>
                                     <tbody>
                                         
-                           
+
                                     <?php foreach($orders as $order):?>
+                                        <?php $customer = getWhere('customer' , "id = ". $order['customer_id'])[0];?>
                                         <tr>
                                             <th scope="row"><input type="checkbox" name="order[]" value="<?= $order['id']?>" /></th>
                                             <td class="tm-product-name text-white"><?= $order['id']?></td>
+                                            <td class="text-white"><?= $customer['name']?></td>
+                                            <td class="text-white"><?= $customer['phone']?></td>
+                                            <td class="text-white"><?= $customer['country']?></td>
+                                            <td class="text-white"><?= $customer['state']?></td>
+                                            <td class="text-white"><?= $customer['zip']?></td>
+                                            <td class="text-white"><?= $customer['address']?></td>
                                             <td class="text-white"><?= $order['total_price']?>$</td>
                                             <td class="text-white"><?= $order['datetime']?></td>
                                             <td>
-                                                
-                                            <form method="POST" >
-                                                <input type="hidden" value="<?= $order['id']?>" name='order_id'>
-                                            <?php 
-                                            if($order['status']==1) 
-                                            echo("<button type='submit'class='tm-product-delete-link bg-dark' name ='delete'>
-                                                    <i class='far fa-trash-alt tm-product-delete-icon'></i>								
-                                                </button>");
-                                            else 
-                                            echo("<button type='submit' class='tm-product-delete-link accept-icon bg-dark' name ='approve'>
-                                                <i class='fas fa-check '></i>
-                                                  </button>");
-                                                 
-                                            ?>
-                                            </form> 
+                                                <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-small">show products</a>
+                                            </td>
+                                            <td>
+                                                <form method="POST" >
+                                                    <input type="hidden" value="<?= $order['id']?>" name='order_id'>
+                                                <?php 
+                                                if($order['status']==1) 
+                                                echo("<button type='submit'class='tm-product-delete-link bg-dark' name ='delete'>
+                                                        <i class='far fa-trash-alt tm-product-delete-icon'></i>								
+                                                    </button>");
+                                                else 
+                                                echo("<button type='submit' class='tm-product-delete-link accept-icon bg-dark' name ='approve'>
+                                                    <i class='fas fa-check '></i>
+                                                    </button>");
+                                                    
+                                                ?>
+                                                </form> 
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>

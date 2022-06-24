@@ -5,7 +5,7 @@ if(empty($_SESSION)){
 };
 require_once('handlers/db.php');
 $news=getWhere('news', 'status = 1');
- ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
