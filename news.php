@@ -1,7 +1,7 @@
 <?php 
 require_once('./handlers/db.php');
 require_once('handlers/data.php');
-$news=getWhere('news', 'status = 1');
+$news=getAll('news');
 $sponsored=getAll('sponsored');
 ?>
 <!DOCTYPE html>

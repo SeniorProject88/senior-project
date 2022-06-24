@@ -1,12 +1,13 @@
 <?php 
 require_once('handlers/db.php');
 require_once('handlers/data.php');
-
-
 $deleivery_id = $_SESSION['user'][0]['id'];
-
 $orders = getWhere('orders' , "delivery_id = $deleivery_id");
-
+    
+/* echo '<pre>';
+print_r( $products[0]['name']);
+echo '</pre>';
+die; */
 ?>
 
 <!DOCTYPE html>
@@ -61,18 +62,54 @@ $orders = getWhere('orders' , "delivery_id = $deleivery_id");
         https://templatemo.com/tm-524-product-admin
     -->
 
+<style>
+.mycss{
+	background-color: #710C04; 
+}
+.dropbtn {
+  background-color: #ddd;
+  color: #000;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 123px;
+  box-shadow: 0px 8px 1px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
 
 </head>
 <body>
-    <!-- <?php 
-            // global $conn ;
-            // $JoinOrder = "SELECT customer.name , customer.name , customer.phone , 
-            // customer.name , customer.country , customer.zip , customer.state, orders.id , orders.total_price , orders.datetime 
-            // FROM `customer` INNER JOIN `orders` ON id = customer_id ";
-            // $JoinOrder = mysqli_query($conn, $JoinOrder);
-            // $getJoinData = mysqli_fetch_all( $JoinOrder,MYSQLI_ASSOC); 
-            // return $getJoinData;
-        ?> -->
+
+     <?php 
+           if(isset($_GET['id'])){
+            $products = getProductsByOrder($_GET['id']);                                    
+   } 
+        ?> 
 
 <?php 
 function GoToPage($page)
@@ -138,8 +175,8 @@ function GoToPage($page)
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
                     <form method = "POST" >
                         <h2 class="text-center bg-light">Orders list</h2>
-                        <div class=" dana">
-                            <div class=" dana">
+                        <div class=" flw">
+                            <div class=" flw">
                                 
                                 <table class="table table-hover tm-table-small tm-product-table">
                                     <thead>
@@ -159,11 +196,14 @@ function GoToPage($page)
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
-
                                     <?php foreach($orders as $order):?>
                                         <?php $customer = getWhere('customer' , "id = ". $order['customer_id'])[0];?>
-                                        <tr>
+                                        <tr  
+                                        <?php   
+                                            if($order['status']==0){ ?> 
+                                           class='mycss';
+                                            <?php } ?>
+                                         >
                                             <th scope="row"><input type="checkbox" name="order[]" value="<?= $order['id']?>" /></th>
                                             <td class="tm-product-name text-white"><?= $order['id']?></td>
                                             <td class="text-white"><?= $customer['name']?></td>
@@ -175,7 +215,17 @@ function GoToPage($page)
                                             <td class="text-white"><?= $order['total_price']?>$</td>
                                             <td class="text-white"><?= $order['datetime']?></td>
                                             <td>
-                                                <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-small">show products</a>
+                                          <!--  <div class="dropdown">
+                                                <button class="dropbtn">show products</button>
+                                                <div class="dropdown-content">
+                                                    <?php foreach($products as $product): {?>
+                                                    <a href="#"><?php $product[0]['name'] ?></a>
+                                                    <?php } 
+                                                    endforeach; 
+                                                    ?>
+                                                </div>
+                                                </div> -->
+                                               <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-sm">show products</a> 
                                             </td>
                                             <td>
                                                 <form method="POST" >

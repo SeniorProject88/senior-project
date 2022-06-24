@@ -34,7 +34,7 @@
                         <li><a href="contact.php">Contact</a></li>
                         <li><a href="about.php">About</a></li>
                         <?php if(isset($role_name)) {?>
-                            <li><a href="#"><?= $_SESSION['user'][0]['name']?> Dashboard</a>
+                            <li><a href="#">Dashboard</a>
                                 <ul class="sub-menu">
                                 <!-- <li><a href="profile.php">profile</a></li> -->
                                     <?php if ($role_name == "customer") {

@@ -17,5 +17,6 @@ require('db.php') ;
         }else{
             echo mysqli_error($conn) ;
         }
+        unset($_SESSION['cart']);
 
 ?>

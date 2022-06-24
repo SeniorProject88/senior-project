@@ -104,9 +104,9 @@ $user_id = $_SESSION['user'][0]['id'];
 
 											<?php
 									endforeach;
-								}else{
-									echo  "no products in cart";
-								} ?>
+								}else{ ?>
+									<p class="text-center">No Products In Cart Yet !</p>
+							<?php	} ?>
 							</tbody>
 						</table>
 					</div>

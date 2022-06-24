@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.3.0-dev+20220601.866861edac
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2022 at 05:36 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.4
+-- Generation Time: Jun 24, 2022 at 05:51 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -105,8 +105,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `email`, `password`, `phone`, `address`, `country`, `zip`, `state`, `status`, `role_id`, `created_at`) VALUES
-(15, 'ahmad', 'ahmad@gmail.com', '123456459', '+962796388393', 'zarqaa', 'Jordan', '111111', 'zarqaa', 0, 2, '2022-06-04 15:00:22'),
-(19, 'dania', 'dania@gmail.com', '123456789', '0568326110', 'tubas', 'palestine', '111', 'tubas', 0, 2, '2022-06-09 01:52:45');
+(20, 'dana', 'dania@gmail.com', '123456789', '0568326110', 'tubas', 'palestine', '111', 'tubas', 0, 2, '2022-06-21 13:15:58'),
+(25, 'ahmad', 'ahmad@gmail.com', '123456789', '0796388393', 'zarqaa', 'jordan', '112233', 'amman', 1, 2, '2022-06-24 16:24:24');
 
 -- --------------------------------------------------------
 
@@ -155,19 +155,6 @@ INSERT INTO `news` (`id`, `title`, `description`, `created_at`, `status`, `img`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ordering`
---
-
-CREATE TABLE `ordering` (
-  `quintity` varchar(10000) NOT NULL,
-  `order_id` int(40) NOT NULL,
-  `customer_id` int(40) NOT NULL,
-  `product_id` int(40) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `orders`
 --
 
@@ -176,6 +163,7 @@ CREATE TABLE `orders` (
   `total_price` varchar(10000) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT current_timestamp(),
   `status` tinyint(1) NOT NULL DEFAULT 0,
+  `customer_id` int(20) NOT NULL,
   `delivery_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -183,9 +171,28 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `total_price`, `datetime`, `status`, `delivery_id`) VALUES
-(1, '10000', '2022-06-10 01:16:06', 0, 1),
-(7, '1000', '2022-06-20 08:02:29', 1, 1);
+INSERT INTO `orders` (`id`, `total_price`, `datetime`, `status`, `customer_id`, `delivery_id`) VALUES
+(11, '130', '2022-06-24 16:35:42', 1, 25, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_products`
+--
+
+CREATE TABLE `order_products` (
+  `id` int(11) NOT NULL,
+  `order_id` int(40) NOT NULL,
+  `product_id` int(40) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order_products`
+--
+
+INSERT INTO `order_products` (`id`, `order_id`, `product_id`) VALUES
+(1, 11, 63),
+(6, 11, 64);
 
 -- --------------------------------------------------------
 
@@ -210,8 +217,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `img`, `description`, `expire_date`, `status`, `owner_id`, `category_id`) VALUES
-(22, 'Homus salad', '20', 'assets/img/products/22,06,051734813134255966.jpg', 'Delicious homus salad 100% natural', '2022-06-09', 1, 11, 1),
-(31, 'Ben Zhaiman coffee', '20', 'assets/img/products/22,06,201736157607614007.jpg', 'Ben Zhaiman coffee', '2022-06-24', 1, 8, 2);
+(63, 'test', '14', 'assets/img/products/22,06,221736343867108482.jpg', 'Ben Zhaiman coffee', '2022-07-09', 1, 8, 3),
+(64, 'test', '3', 'assets/img/products/22,06,221736343883063630.jpg', 'Ben Zhaiman coffee', '2022-07-09', 1, 8, 2),
+(65, 'test', '14', 'assets/img/products/22,06,221736361803632319.jpg', 'Ben Zhaiman coffee', '2022-07-09', 0, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -236,7 +244,10 @@ CREATE TABLE `product_owners` (
 
 INSERT INTO `product_owners` (`id`, `name`, `email`, `password`, `phone`, `company_name`, `company_id`, `role_id`) VALUES
 (8, 'ahmad', 'ahmad@gmail.com', '123456789', '+962796388393', 'zhiman coffee', 0, 3),
-(11, 'dania ratrout', 'dania@gmail.com', '123456789', '0568326110', 'sanyora', 123, 3);
+(11, 'dania ratrout', 'dania@gmail.com', '123456789', '0568326110', 'sanyora', 123, 3),
+(14, '11111111', 'daniasd@gmail.com', '123456789', '0568326110', 'paltel', 123, 3),
+(15, '111111111', 'daniwwwa@gmail.com', '123456789', '0568326110', 'paltel', 123, 3),
+(16, 'dania ratrout', 'daaania@gmail.com', '123456789', '0568326110', 'paltel', 123, 3);
 
 -- --------------------------------------------------------
 
@@ -365,19 +376,20 @@ ALTER TABLE `news`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ordering`
---
-ALTER TABLE `ordering`
-  ADD KEY `Order_ID` (`order_id`),
-  ADD KEY `Product_ID` (`product_id`),
-  ADD KEY `Customer_ID` (`customer_id`);
-
---
 -- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Delivery_ID` (`delivery_id`);
+  ADD KEY `Delivery_ID` (`delivery_id`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Indexes for table `order_products`
+--
+ALTER TABLE `order_products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Order_ID` (`order_id`),
+  ADD KEY `Product_ID` (`product_id`);
 
 --
 -- Indexes for table `products`
@@ -451,7 +463,7 @@ ALTER TABLE `contacts`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `delivery`
@@ -469,19 +481,25 @@ ALTER TABLE `news`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `order_products`
+--
+ALTER TABLE `order_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `product_owners`
 --
 ALTER TABLE `product_owners`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -530,18 +548,18 @@ ALTER TABLE `delivery`
   ADD CONSTRAINT `delivery_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `ordering`
---
-ALTER TABLE `ordering`
-  ADD CONSTRAINT `ordering_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
-  ADD CONSTRAINT `ordering_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `ordering_ibfk_3` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
-
---
 -- Constraints for table `orders`
 --
 ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`id`);
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`delivery_id`) REFERENCES `delivery` (`id`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `order_products`
+--
+ALTER TABLE `order_products`
+  ADD CONSTRAINT `order_products_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_products_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
@@ -569,6 +587,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-

@@ -4,7 +4,7 @@ if(empty($_SESSION)){
 	header("LOCATION: index.php");
 };
 require_once('handlers/db.php');
-$news=getWhere('news', 'status = 1');
+$news=getAll('news');
 ?>
 <!DOCTYPE html>
 <html lang="en">

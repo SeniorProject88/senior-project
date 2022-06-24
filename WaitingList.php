@@ -61,6 +61,9 @@ $categorys=getWhere('categorys', 'status = 1');
     .body{
         max-width: 10000px;
     }
+    .mycss{
+	background-color: #710C04; 
+}
     </style>
 </head>
 <body>
@@ -149,7 +152,10 @@ $categorys=getWhere('categorys', 'status = 1');
                                         
                            
                                     <?php foreach($products as $product):?>
-                                        <tr>
+                                        <tr <?php   
+                                            if($product['status']==0){ ?> 
+                                           class='mycss';
+                                            <?php } ?>>
                                             <th scope="row"><input type="checkbox" name="product[]" value="<?= $product['id']?>" /></th>
                                             <td class="tm-product-name text-white"><?= $product['name']?></td>
                                             <td class="text-white product-image "><img src="<?= $product['img']?>" alt="Image Not Found" ></td>

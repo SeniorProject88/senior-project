@@ -439,7 +439,10 @@ input[type="checkbox"]:focus {
 .dana{
   max-height: 4000px;
   margin-bottom: 15px;
-  overflow-y: auto;
+}
+.flw{
+  max-height: 4000px;
+  margin-bottom: 15px;
 }
 .tm-product-table tr {
   font-weight: 600;
