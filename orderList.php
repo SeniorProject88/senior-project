@@ -2,6 +2,7 @@
 require_once('handlers/db.php');
 require_once('handlers/data.php');
 $orders=getAll('orders');
+$customer=getAll('customer');
 ?>
 
 <!DOCTYPE html>
@@ -59,6 +60,16 @@ $orders=getAll('orders');
 
 </head>
 <body>
+    <?php 
+            global $conn ;
+            $JoinOrder = "SELECT customer.name , customer.name , customer.phone , 
+            customer.name , customer.country , customer.zip , customer.state, orders.id , orders.total_price , orders.datetime 
+             FROM `customer` INNER JOIN `orders` ON id = customer_id ";
+            $JoinOrder = mysqli_query($conn, $JoinOrder);
+            $getJoinData = mysqli_fetch_all( $JoinOrder,MYSQLI_ASSOC); 
+            return $getJoinData;
+        ?>
+
 <?php 
  function GoToPage($page)
  {
@@ -131,8 +142,14 @@ $orders=getAll('orders');
                                         <tr>
                                             <th class="text-white" scope="col">Select</th>
                                             <th class="text-white" scope="col">ORDER NO.</th>
+                                            <th class="text-white" scope="col">Customer Name</th>
+                                            <th class="text-white" scope="col">Phone</th>
+                                            <th class="text-white" scope="col">Country</th>
+                                            <th class="text-white" scope="col">State</th>
+                                            <th class="text-white" scope="col">zip</th>
+                                            <th class="text-white" scope="col">address</th>
                                             <th class="text-white" scope="col">Total price</th>
-                                            <th class="text-white" scope="col">DateTime</th>
+                                            <th class="text-white" scope="col">Order Date</th>
                                             <th class="text-white" scope="col">Actions</th>     
                                         </tr>
                                     </thead>
