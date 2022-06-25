@@ -1,9 +1,14 @@
 <?php 
 require_once('handlers/db.php');
 require_once('handlers/data.php');
-$orders=getAll('orders');
-// echo "<pre>";
-// print_r($orders);die;
+$customer_id = $_SESSION['user'][0]['id'];
+$customer_name = $_SESSION['user'][0]['name']; 
+
+$orders = getWhere('orders' , "status = 1 AND customer_id = $customer_id");
+$order_id = $orders[0]['id'];
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +20,7 @@ $orders=getAll('orders');
 
 	<!-- title -->
 	<title>My order</title>
-
+    
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
 	<!-- google font -->
@@ -82,26 +87,28 @@ $orders=getAll('orders');
                         unset($_SESSION['create']);    
                 }
                 ?>
+                
             <div class="title">Purchase Receipt</div>
+            <div class="title">Recipient name: <?= $customer_name ?></div>
             <div class="info">
                 <div class="row">
                     <div class="total">
                         <span id="heading">Date</span><br>
-                        <span id="details"><?= $orders['datetime']?></span>
+                        <span id="details"><?= $orders[0]['datetime']?></span>
                     </div>
                     <div class="total">
                         <span id="heading">Order No.</span><br>
-                        <span id="details"><?= $orders['id']?></span>
+                        <span id="details"><?= $order_id ?></span>
                     </div>
                 </div>      
             </div>      
             <div class="pricing">
                 <div class="row">
                     <div class="col-9">
-                        <span id="name">BEATS Solo 3 Wireless Headphones</span>  
+                        <span id="name">Products price</span>  
                     </div>
                     <div class="col-3">
-                        <span id="price">&pound;299.99</span>
+                        <span id="price"><?= $orders[0]['total_price']-30 ?>$</span>
                     </div>
                 </div>
                 <div class="row">
@@ -109,14 +116,14 @@ $orders=getAll('orders');
                         <span id="name">Shipping</span>
                     </div>
                     <div class="col-3">
-                        <span id="price">&pound;33.00</span>
+                        <span id="price">30$</span>
                     </div>
                 </div>
             </div>
             <div class="total">
                 <div class="row">
                     <div class="col-9"></div>
-                    <div class="col-3"><big>&pound;262.99</big></div>
+                    <div class="col-3"><big><?= $orders[0]['total_price']?>$</big></div>
                 </div>
             </div>
             <div class="tracking">

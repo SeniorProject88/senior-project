@@ -5,9 +5,11 @@ require_once("handlers/connect.php");
 require_once("handlers/db.php");
 
 
+
 $productID=$_GET['id'];
 $product = getWhere('products','id='.$productID);
 $user_id = $_SESSION['user'][0]['id'];
+
 
 
 $product[0]['qtyUser'] = 1;
@@ -25,6 +27,7 @@ if(isset($_SESSION['cart'])){
 // die;
 
 $_SESSION['successAddToCart'] ="add to cart ";
+
 
 
 header("Location: Products.php");

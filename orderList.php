@@ -3,6 +3,7 @@ require_once('handlers/db.php');
 require_once('handlers/data.php');
 $deleivery_id = $_SESSION['user'][0]['id'];
 $orders = getWhere('orders' , "delivery_id = $deleivery_id");
+
     
 /* echo '<pre>';
 print_r( $products[0]['name']);
@@ -107,10 +108,10 @@ die; */
 
      <?php 
            if(isset($_GET['id'])){
-            $products = getProductsByOrder($_GET['id']);                                    
+            $products = getProductsByOrder($_GET['id']);    
+                                            
    } 
         ?> 
-
 <?php 
 function GoToPage($page)
 {
@@ -215,17 +216,17 @@ function GoToPage($page)
                                             <td class="text-white"><?= $order['total_price']?>$</td>
                                             <td class="text-white"><?= $order['datetime']?></td>
                                             <td>
-                                          <!--  <div class="dropdown">
+                                         <!-- <div class="dropdown">
                                                 <button class="dropbtn">show products</button>
                                                 <div class="dropdown-content">
-                                                    <?php foreach($products as $product): {?>
-                                                    <a href="#"><?php $product[0]['name'] ?></a>
+                                                    <?php foreach($_SESSION['cart'] as $key => $value): {?>
+                                                    <a href="order_products.php?id=<?= $order['id']?>"><?php $product[0]['name'] ?></a>
                                                     <?php } 
                                                     endforeach; 
                                                     ?>
                                                 </div>
                                                 </div> -->
-                                               <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-sm">show products</a> 
+                                                <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-sm">show products</a> 
                                             </td>
                                             <td>
                                                 <form method="POST" >
