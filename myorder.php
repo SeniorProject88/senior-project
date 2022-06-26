@@ -3,10 +3,12 @@ require_once('handlers/db.php');
 require_once('handlers/data.php');
 $customer_id = $_SESSION['user'][0]['id'];
 $customer_name = $_SESSION['user'][0]['name']; 
-
-$orders = getWhere('orders' , "status = 1 AND customer_id = $customer_id");
-$order_id = $orders[0]['id'];
-
+$orders = getWhere('orders' , "status = 1 AND customer_id = $customer_id"); 
+/*$order_id = $orders[0]['id'];
+echo '<pre>';
+print_r($orders);
+echo '</pre>';
+die;*/
 
 
 ?>
@@ -74,9 +76,19 @@ $order_id = $orders[0]['id'];
 	<?php require_once("./layouts/navbar.php")?>
 	<!-- end navbar -->
 
-	
+        
+     <?php 
+           if(isset($_GET['id'])){
+            $products = getProductsByOrder($_GET['id']);    
+                                            
+   } 
+        ?> 
+	 <?php foreach($orders as $order):?>
+                 <?php $customer = getWhere('customer' , "id = ". $order['customer_id'])[0];?>
        <div class="myorder"> 
  <div class="card">
+     
+
  <?php 
                     if(isset($_SESSION['create'])){ ?>
                         <div class="aletr alert-success h-10
@@ -88,17 +100,19 @@ $order_id = $orders[0]['id'];
                 }
                 ?>
                 
+               
+
             <div class="title">Purchase Receipt</div>
             <div class="title">Recipient name: <?= $customer_name ?></div>
             <div class="info">
                 <div class="row">
                     <div class="total">
                         <span id="heading">Date</span><br>
-                        <span id="details"><?= $orders[0]['datetime']?></span>
+                        <span id="details"><?= $order['datetime']?></span>
                     </div>
                     <div class="total">
                         <span id="heading">Order No.</span><br>
-                        <span id="details"><?= $order_id ?></span>
+                        <span id="details"><?= $order['id']?></span>
                     </div>
                 </div>      
             </div>      
@@ -108,7 +122,7 @@ $order_id = $orders[0]['id'];
                         <span id="name">Products price</span>  
                     </div>
                     <div class="col-3">
-                        <span id="price"><?= $orders[0]['total_price']-30 ?>$</span>
+                        <span id="price"><?= $order['total_price']-30?>$</span>
                     </div>
                 </div>
                 <div class="row">
@@ -123,7 +137,7 @@ $order_id = $orders[0]['id'];
             <div class="total">
                 <div class="row">
                     <div class="col-9"></div>
-                    <div class="col-3"><big><?= $orders[0]['total_price']?>$</big></div>
+                    <div class="col-3"><big><?= $order['total_price']?>$</big></div>
                 </div>
             </div>
             <div class="tracking">
@@ -148,7 +162,9 @@ $order_id = $orders[0]['id'];
                
             </div>
         </div>
+        
     </div>
+    <?php endforeach; ?>
 		
 		<!-- footer -->
 			<?php require_once("./layouts/footer.php")?>

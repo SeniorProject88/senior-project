@@ -39,7 +39,7 @@
                                 <!-- <li><a href="profile.php">profile</a></li> -->
                                     <?php if ($role_name == "customer") {
                             ?>
-                                        <li><a href="myorder.php">myorder</a></li>
+                                        <li><a href="myorder.php">myorders</a></li>
                                     <?php
                         }?>
                                     <?php if ($role_name == "admin") {

@@ -199,6 +199,7 @@ function GoToPage($page)
                                     <tbody>
                                     <?php foreach($orders as $order):?>
                                         <?php $customer = getWhere('customer' , "id = ". $order['customer_id'])[0];?>
+                                        
                                         <tr  
                                         <?php   
                                             if($order['status']==0){ ?> 
@@ -219,23 +220,12 @@ function GoToPage($page)
                                          <div class="dropdown">
                                                 <button class="dropbtn">show products</button>
                                                 <div class="dropdown-content text-black-50">
-                                                  <?php /* foreach($_SESSION['cart'] as $key => $value): {?>
-                                                    <a href="order_products.php?id=<?= $order['id']?>"><?php $product[0]['name'] ?></a>
-                                                    <?php } 
-                                                    endforeach; 
-                                                    */
-                                                    $products = getProductsByOrder($order['id']);
+                                                    <?php $products = getProductsByOrder($order['id']);
                                                     for($i=0 ; $i<count($products) ;$i++ ){ ?>
-                                                  
-                                                    <p > <?php echo $products[$i]['name'] ;?> </p> 
-                                              <?php  }
-                                                    
-                                                    ?> 
-
-
+                                     <p> <?php echo $products[$i]['name'] ;?> <span>#<?php echo count($products[$i]) ;?></span></p> 
+                                              <?php  } ?> 
                                                 </div>
                                                 </div> 
-                                               <!--  <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-sm">show products</a> -->
                                             </td>
                                             <td>
                                                 <form method="POST" >

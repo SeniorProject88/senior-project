@@ -12,9 +12,6 @@ $roles = getAll('roles');
 $products=getAll('products');
 $categorys=getWhere('categorys', 'status = 1');
 $user_id = $_SESSION['user'][0]['id'];
-// echo "<pre>";
-// print_r($_SESSION['cart']);
-// die;
 ?>
 
 <!DOCTYPE html>
