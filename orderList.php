@@ -84,7 +84,7 @@ die; */
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 123px;
+  min-width: 200px;
   box-shadow: 0px 8px 1px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
@@ -152,11 +152,11 @@ function GoToPage($page)
                         ?>
 	
 	<!--PreLoader-->
-    <!-- <div class="loader">
+     <div class="loader">
         <div class="loader-inner">
             <div class="circle"></div>
         </div>
-    </div> -->
+    </div> 
     <!--PreLoader Ends-->
 	
 	<!-- navbar -->
@@ -216,17 +216,26 @@ function GoToPage($page)
                                             <td class="text-white"><?= $order['total_price']?>$</td>
                                             <td class="text-white"><?= $order['datetime']?></td>
                                             <td>
-                                         <!-- <div class="dropdown">
+                                         <div class="dropdown">
                                                 <button class="dropbtn">show products</button>
-                                                <div class="dropdown-content">
-                                                    <?php foreach($_SESSION['cart'] as $key => $value): {?>
+                                                <div class="dropdown-content text-black-50">
+                                                  <?php /* foreach($_SESSION['cart'] as $key => $value): {?>
                                                     <a href="order_products.php?id=<?= $order['id']?>"><?php $product[0]['name'] ?></a>
                                                     <?php } 
                                                     endforeach; 
-                                                    ?>
+                                                    */
+                                                    $products = getProductsByOrder($order['id']);
+                                                    for($i=0 ; $i<count($products) ;$i++ ){ ?>
+                                                  
+                                                    <p > <?php echo $products[$i]['name'] ;?> </p> 
+                                              <?php  }
+                                                    
+                                                    ?> 
+
+
                                                 </div>
-                                                </div> -->
-                                                <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-sm">show products</a> 
+                                                </div> 
+                                               <!--  <a href="order_products.php?id=<?= $order['id']?>" class="btn btn-light btn-sm">show products</a> -->
                                             </td>
                                             <td>
                                                 <form method="POST" >
