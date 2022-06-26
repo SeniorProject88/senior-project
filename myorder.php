@@ -3,7 +3,19 @@ require_once('handlers/db.php');
 require_once('handlers/data.php');
 $customer_id = $_SESSION['user'][0]['id'];
 $customer_name = $_SESSION['user'][0]['name']; 
-$orders = getWhere('orders' , "status = 1 AND customer_id = $customer_id"); 
+
+function getorder($table, $where){
+    global $conn ;
+    $getAll = "SELECT * FROM $table where $where 
+    ORDER BY datetime DESC ;";
+    $getAll = mysqli_query($conn,$getAll);
+    $getAllData = mysqli_fetch_all($getAll,MYSQLI_ASSOC);
+
+    return $getAllData;
+}
+
+
+$orders = getorder('orders' , " customer_id = $customer_id"); 
 /*$order_id = $orders[0]['id'];
 echo '<pre>';
 print_r($orders);
@@ -103,7 +115,7 @@ die;*/
                
 
             <div class="title">Purchase Receipt</div>
-            <div class="title">Recipient name: <?= $customer_name ?></div>
+            <div class="title">Recipient: <?= $customer_name ?></div>
             <div class="info">
                 <div class="row">
                     <div class="total">
@@ -117,6 +129,18 @@ die;*/
                 </div>      
             </div>      
             <div class="pricing">
+                <div class="row">
+                     <div class="col-9">
+                        <span id="name">Products</span>  
+                    </div>
+                    <div class="col-3">  
+                        <?php $products = getProductsByOrder($order['id']);
+                         for($i=0 ; $i<count($products) ;$i++ ){ ?>
+                         <p class="text-white"> <?php echo $products[$i]['name'] ;?> </p> 
+                        <?php  } ?> 
+                    </div>
+                </div>
+                <hr>
                 <div class="row">
                     <div class="col-9">
                         <span id="name">Products price</span>  
@@ -141,22 +165,37 @@ die;*/
                 </div>
             </div>
             <div class="tracking">
-                <div class="title">Tracking Order</div>
+                <div class="title">Order state:</div>
             </div>
             <div class="progress-track">
-                <ul id="progressbar">
+            <?php if($order['status']==0){ ?>
+                <button class="btn btn-warning btn-lg">
+                    <?php echo "Orderd"; ?> </button> <?php }
+                     
+                else{ ?>
+                    <button class="btn btn-success btn-lg">
+                    <?php echo "Deliverd"; ?> </button> <?php }
+                    ?> 
+               
+                
+            
+                <!-- <ul id="progressbar">
                     <li class="step0 active " id="step1">Ordered</li>
                     <li class="step0 active text-center" id="step2">Shipped</li>
                     <li class="step0 active text-right" id="step3">On the way</li>
                     <li class="step0 text-right" id="step4">Delivered</li>
-                </ul>
+                </ul> -->
             </div>
             
 
             <div class="footer">
                 <div class="row">
                     <div class="col-2"></div>
-                    <div class="col-10">Want any help? Please &nbsp;<a href="contact.php"> contact us</a></div>
+                    <div class="col-10">The order is expected to be received within 30 days!</div>
+                </div>
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-9">Want any help? Please &nbsp;<a href="contact.php"> contact us</a></div>
                 </div>
                 
                
