@@ -12,6 +12,7 @@ $roles = getAll('roles');
 $products=getAll('products');
 $categorys=getWhere('categorys', 'status = 1');
 $user_id = $_SESSION['user'][0]['id'];
+
 ?>
 
 <!DOCTYPE html>
@@ -63,11 +64,14 @@ $user_id = $_SESSION['user'][0]['id'];
     <!-- end navbar -->
 
 	<!-- cart -->
+	<form action="handlers/checkout.php"" method="POST">
 	<div class="cart-section mt-250 mb-150">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 col-md-12">
+				
 					<div class="cart-table-wrap">
+					
 						<table class="cart-table">
 							<thead class="cart-table-head">
 								<tr class="table-head-row">
@@ -82,6 +86,7 @@ $user_id = $_SESSION['user'][0]['id'];
 							<tbody>
 								<?php 
 								if(!empty($_SESSION['cart'])){ 
+									$k=1;
 									foreach($_SESSION['cart'] as $i => $product):
 								?>
 									<?php if(!empty($product[$user_id][0])){?>
@@ -91,8 +96,9 @@ $user_id = $_SESSION['user'][0]['id'];
 												<td class="product-name"><?= $product[$user_id][0]['name']?></td>
 												<td class="product-price"><?= $product[$user_id][0]['price']?>$</td>
 												<td class="product-quantity">
-													<input type="number" class="count-<?= $product[$user_id][0]['id']?>" 
-													onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="0" min="0" oninput="validity.valid||(value='');">
+													<input type="number" name="quantity<?= $k++ ; ?>" class="count-<?= $product[$user_id][0]['id']?>" 
+													onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="0" min="1" oninput="validity.valid||(value='');">
+
 												</td>  
 												<input type="hidden" class="price-<?= $product[$user_id][0]['id']?>" value="<?= $product[$user_id][0]['price']?>"> 
 												<td class="product-total-<?= $product[$user_id][0]['id']?> total-order"><span>0</span>$</td>
@@ -112,7 +118,7 @@ $user_id = $_SESSION['user'][0]['id'];
 				<div class="col-lg-4">
 					<div class="total-section">
 
-						<form action="handlers/checkout.php"" method="POST">
+					
 							<table class="total-table">
 							<thead class="total-table-head">
 								<tr class="table-total-row">
@@ -142,15 +148,16 @@ $user_id = $_SESSION['user'][0]['id'];
 								</tbody>
 							</table>
 							<div class="cart-buttons">
-								<button href="#" class="cart-btn">Check Out</button>
+								<button name="checkout" class="cart-btn">Check Out</button>
 							</div>
-						</form>
+						
 					
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	</form>
 	<!-- end cart -->
 
 	<!-- logo carousel -->

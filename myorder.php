@@ -168,13 +168,17 @@ die;*/
                 <div class="title">Order state:</div>
             </div>
             <div class="progress-track">
-            <?php if($order['status']==0){ ?>
-                <button class="btn btn-warning btn-lg">
+            <?php if($order['status']=='0'){ ?>
+                <button class="btn btn-secondary btn-lg">
                     <?php echo "Orderd"; ?> </button> <?php }
                      
-                else{ ?>
-                    <button class="btn btn-success btn-lg">
-                    <?php echo "Deliverd"; ?> </button> <?php }
+                else if($order['status']=='1'){ ?>
+                    <button class="btn btn-warning btn-lg">
+                    <?php echo "Shipping"; ?> </button> <?php }
+
+                     else if($order['status']=='2'){ ?>
+                        <button class="btn btn-success btn-lg">
+                        <?php echo "Deliverd"; ?> </button> <?php }
                     ?> 
                
                 

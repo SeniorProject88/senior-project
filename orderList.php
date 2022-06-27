@@ -64,8 +64,14 @@ die; */
     -->
 
 <style>
-.mycss{
-	background-color: #710C04; 
+.ordered{
+	background-color: #D2222D; 
+}
+.shipping{
+	background-color: #FFBF00; 
+}
+.deliverd{
+	background-color: #238823; 
 }
 .dropbtn {
   background-color: #ddd;
@@ -121,7 +127,7 @@ function GoToPage($page)
         {
             $order_id=$_POST['order_id'];
             require_once('handlers/connect.php');
-            $myQuery = mysqli_query($conn,"UPDATE orders SET status=1 where id=".$order_id ) 
+            $myQuery = mysqli_query($conn,"UPDATE orders SET status='1' where id=".$order_id ) 
             or die(mysqli_error($conn) );                                    
             GoToPage("orderList.php");     
 } 
@@ -129,14 +135,14 @@ function GoToPage($page)
             {
                 $order_id=$_POST['order_id'];
                 require_once('handlers/connect.php');
-                $myQuery = mysqli_query($conn,"UPDATE orders SET status=0 where id=".$order_id ) 
+                $myQuery = mysqli_query($conn,"UPDATE orders SET status='2' where id=".$order_id ) 
                 or die(mysqli_error($conn) );                                    
                 GoToPage("orderList.php");
             } 
             if( isset($_POST['approveAll']) && !empty($_POST['order']) ) {
                                                 
                     foreach($_POST['order'] as $prod) {
-                        $myQuery = mysqli_query($conn,"UPDATE orders SET status=1 where id=".$prod ) 
+                        $myQuery = mysqli_query($conn,"UPDATE orders SET status='1' where id=".$prod ) 
                             or die(mysqli_error($conn) );                                                                         
                             }
                         GoToPage("orderList.php");
@@ -144,7 +150,7 @@ function GoToPage($page)
 
             else if( isset($_POST['deleteAll']) && !empty($_POST['order']) ) {
                     foreach($_POST['order'] as $prod) {
-                    $myQuery = mysqli_query($conn,"UPDATE orders SET status=0 where id=".$prod ) 
+                    $myQuery = mysqli_query($conn,"UPDATE orders SET status='2' where id=".$prod ) 
                     or die(mysqli_error($conn) );                                                                                      
                     }
                     GoToPage("orderList.php");
@@ -202,9 +208,13 @@ function GoToPage($page)
                                         
                                         <tr  
                                         <?php   
-                                            if($order['status']==0){ ?> 
-                                           class='mycss';
-                                            <?php } ?>
+                                            if($order['status']=='0'){ ?> 
+                                           class='ordered';
+                                            <?php } else if($order['status']=='1'){ ?>
+                                                class='shipping';
+                                                <?php } else if($order['status']=='2'){ ?>
+                                                class='deliverd';
+                                                <?php } ?>
                                          >
                                             <th scope="row"><input type="checkbox" name="order[]" value="<?= $order['id']?>" /></th>
                                             <td class="tm-product-name text-white"><?= $order['id']?></td>
@@ -222,7 +232,7 @@ function GoToPage($page)
                                                 <div class="dropdown-content text-black-50">
                                                     <?php $products = getProductsByOrder($order['id']);
                                                     for($i=0 ; $i<count($products) ;$i++ ){ ?>
-                                     <p> <?php echo $products[$i]['name'] ;?> <span>#<?php echo count($products[$i]) ;?></span></p> 
+                                     <p> <?php echo $products[$i]['name'] ;?> <span>#<?php echo  $products[$i]['quantity']?></span></p> 
                                               <?php  } ?> 
                                                 </div>
                                                 </div> 
@@ -232,12 +242,16 @@ function GoToPage($page)
                                                     <input type="hidden" value="<?= $order['id']?>" name='order_id'>
                                                 <?php 
                                                 if($order['status']==1) 
-                                                echo("<button type='submit'class='tm-product-delete-link bg-dark' name ='delete'>
-                                                        <i class='far fa-trash-alt tm-product-delete-icon'></i>								
+                                                echo("<button type='submit'class='tm-product-delete-link bg-dark'  name ='delete'>
+                                                        <i class='fas fa-truck tm-product-delete-icon'></i>								
                                                     </button>");
-                                                else 
+                                                else if ($order['status']=='2')
                                                 echo("<button type='submit' class='tm-product-delete-link accept-icon bg-dark' name ='approve'>
                                                     <i class='fas fa-check '></i>
+                                                    </button>");
+                                                else 
+                                                echo("<button type='submit' class='tm-product-delete-link bg-dark' name ='approve'>
+                                                <i class='fas fa-pause'></i>
                                                     </button>");
                                                     
                                                 ?>
@@ -250,8 +264,11 @@ function GoToPage($page)
                                 </table>
                             </div>
                             <!-- table container -->
-                            <button class="btn  btn-block text-uppercase success-color " name="approveAll">
-                            Take selected orders
+                            <button class="btn  btn-block text-uppercase btn btn-light " name="approveAll">
+                            Put selected orders in shipping state
+                            </button>
+                            <button class="btn  btn-block text-uppercase btn btn-secondary " name="deleteAll">
+                            Put selected orders in deliverd state
                             </button>
                         </div>
                         </form>

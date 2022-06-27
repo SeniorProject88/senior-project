@@ -455,6 +455,7 @@ input[type="checkbox"]:focus {
   font-size: 1.1rem;
   color: #fff;
 }
+
 .tm-product-delete-link {
   padding: 10px;
   border-radius: 50%;
@@ -464,8 +465,10 @@ input[type="checkbox"]:focus {
   height: 40px;
   text-align: center;
 }
+
+
 .tm-product-delete-link:hover .tm-product-delete-icon {
-  color: #710C04;
+  color: #FFBF00;
 }
 .custom-select {
   width: 100%;

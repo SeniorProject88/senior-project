@@ -252,7 +252,7 @@
 }
     function getProductsByOrder($order_id){
         global $conn;
-        $getAll = "SELECT products.id , products.name , products.price , products.description , products.img
+        $getAll = "SELECT products.id , products.name , products.price , products.description , products.img, order_products.quantity
                     FROM products
                     JOIN order_products 
                     ON products.id =order_products.product_id

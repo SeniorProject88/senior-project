@@ -9,17 +9,19 @@ require('db.php') ;
         $customer_id=$_SESSION['user'][0]['id'];
 
          $query="INSERT INTO `orders` (`total_price`, `status`, `customer_id`, `delivery_id`) VALUES
-        ( $total_price, 0,  $customer_id, 1);";
+        ( $total_price, '0',  $customer_id, 1);";
         mysqli_query($conn, $query);
         $last_id = $conn->insert_id;
 
 
 
-
+        $k=1;
        foreach($_SESSION['cart'] as $key => $value){
-   
-        $query ="INSERT INTO `order_products` (`order_id`, `product_id`) VALUES
-        ('$last_id' , '$key' );";  
+        $q= $_SESSION['total-amount']['quantity'.$k];
+        $k++;
+       
+        $query ="INSERT INTO order_products (order_id,product_id , quantity) VALUES
+        ($last_id , $key ,$q);"; 
 
         mysqli_query($conn, $query);
 
