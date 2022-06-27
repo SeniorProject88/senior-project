@@ -81,8 +81,8 @@ $team=getAll('team');
 									<i class="fas fa-money-bill-alt"></i>
 								</div>
 								<div class="content">
-									<h3>Free Shipping</h3>
-							<p>When order over $75</p>
+									<h3>Quality & reliability</h3>
+							<p>Cheapest and best quality</p>
 								</div>
 							</div>
 						</div>
@@ -100,11 +100,11 @@ $team=getAll('team');
 						<div class="col-lg-6 col-md-6">
 							<div class="list-box d-flex">
 								<div class="list-icon">
-									<i class="fas fa-sync-alt"></i>
+								<i class="fas fa-phone-volume"></i>
 								</div>
 								<div class="content">
-									<h3>Coupon </h3>
-							<p>Use the Coupon Code</p>
+									<h3>24/7 Support</h3>
+									<p>Get support all day</p>
 								</div>
 							</div>
 						</div>
@@ -117,17 +117,6 @@ $team=getAll('team');
 	</div>
 </div>
 <!-- end featured section -->
-
-
-	<!-- shop banner
-	<section class="shop-banner">
-    	<div class="container">
-        	<h2>August sale is on! <br> with big <span class="orange-text">Discount...</span></h2>
-            <div class="sale-percent"><span>Sale! <br> Upto</span>40% <span>off olives oil</span></div>
-            <a href="shop.html" class="cart-btn btn-lg">Shop Now</a>
-        </div>
-    </section>
-	 end shop banner -->
 
 	<!-- team section -->
 	<div class="mt-150">

@@ -8,9 +8,6 @@ if (!isset($_SESSION['user'])) {
 }else{
     $user = $_SESSION['user'][0];
 }
-// echo "<pre>";
-// print_r($_SESSION['user']);die;
-
 $roles = getAll('roles');
 
 ?>

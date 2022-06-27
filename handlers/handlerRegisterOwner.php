@@ -65,12 +65,12 @@
 
                 //Company's ID
                 if(!required($companyid)){
-                    $errorss[]= "plz input your company id, company id is required";
-                }elseif(!minRange($companyid,3)){
-                    $errorss[]= "company name must be larger than 3 numbers";
+                    $errorss[]= "company id is required";
+                }elseif(!minRange($companyid,1)){
+                    $errorss[]= "company id must be larger than 1 number";
 
                 }elseif(!maxRange($companyid,20)){
-                        $errorss[]= "company name must be less than 20 numbers";
+                        $errorss[]= "company id must be less than 20 numbers";
                 }elseif(!is_numeric($companyid)){
                     $errorss[]= "company id must be a number";
             }
@@ -78,9 +78,9 @@
 
                 //phone validate 
                 if(!required($pphone)){
-                    $errorss[]= "plz input your phone, phone is required";
-                }elseif(!minRange($pphone,4)){
-                    $errorss[]= "phone must be larger than 4 numbers";
+                    $errorss[]= "phone is required";
+                }elseif(!minRange($pphone,9)){
+                    $errorss[]= "phone must be larger than 9 numbers";
 
                 }elseif(!maxRange($pphone,30)){
                         $errorss[]= "phone must be less than 21 numbers";

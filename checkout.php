@@ -98,13 +98,6 @@
 						      <div class="card-body">
 						        <div class="billing-address-form">
 						        	<form  method="POST" action="handlers/updateCheckout.php">
-						        	<!--	<p><input type="text" placeholder="Name"></p>
-						        		<p><input type="email" placeholder="Email"></p>
-						        		<p><input type="text" placeholder="Country"></p>
-						        		<p><input type="text" placeholder="State"></p>
-						        		<p><input type="text" placeholder="Zip"></p>
-						        		<p><input type="text" placeholder="Address"></p>
-						        		<p><input type="tel" placeholder="Phone"></p> -->
 										<?php 
                                                     if(!empty($_SESSION['success'])):
                                                 ?>

@@ -100,30 +100,7 @@
         $name=$_POST['name'];
         add("categorys","name" ," '$name' ","shop.php");
     }
-
-
-   /* if (isset($_POST['addProduct'])){  
-        $img=$_FILES['img'];
-        $imgName=$img['name'];
-        $imgTmpName=$img['tmp_name'];
-        $t=time();
-        $nowDate=date('y,m,d',$t);
-        $randomString="$nowDate".hexdec(uniqid());
-        $ext=pathinfo($imgName,PATHINFO_EXTENSION);
-        $imgNewName ="$randomString.$ext";
-        $imgNewNameDB="assets/img/products/";
-        $imgNewNameDB .="$randomString.$ext";
-        $name=$_POST['name'];
-        $category_id =$_POST['category_id']; 
-        $price=$_POST['price'];
-        $description=$_POST['description'];
-        $Expire_Date=$_POST['expire_date'];
-        $owner_id = $_POST['owner_id'];
-        add("products","name, price, img, description, expire_date, owner_id ,category_id" ,
-        " '$name','$price','$imgNewNameDB','$description','$Expire_Date','$owner_id' ,'$category_id' "
-        ,"addproduct.php");
-        move_uploaded_file($imgTmpName,"../assets/img/products/$imgNewName");
-    } */
+  
 
     if (isset($_POST['addTeam'])){  
         $img=$_FILES['img'];

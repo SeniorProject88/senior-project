@@ -12,7 +12,7 @@
 
         //name validate 
         if(!required($name)){
-            $errors[]= "plz input your name, name is required";
+            $errors[]= "name is required";
         }elseif(!minRange($name,2)){
             $errors[]= "name must be larger than 2 letters";
 
@@ -24,7 +24,7 @@
     }
         //description validate 
         if(!required($description)){
-            $errors[]= "plz input your description, description is required";
+            $errors[]= "description is required";
         }
         elseif(is_numeric($description)){
             $errors[]= "description must be a string";
@@ -45,15 +45,13 @@
 
         //price validate 
         if(!required($price)){
-            $errors[]= "plz input your description, description is required";
+            $errors[]= "price is required";
         }
         elseif(!is_numeric($price)){
             $errors[]= "price must be number";
     }elseif(!positive($price)){
-        $errors[]= "price must be a positive number";
+        $errors[]= "price not acceptable!";
 }
-        
-      
        
         if(empty($errors)){  
             $img=$_FILES['img'];

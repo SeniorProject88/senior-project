@@ -95,6 +95,8 @@ require_once('handlers/db.php');
             <div class="col-md-3 register-left">
                 <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
                 <h3>Welcome</h3>
+                <p>have account? <a class="text-white" href="login.php">Login here</a> </p>
+                
             </div>
             <div class="col-md-9 register-right">
                 <div class="tab-content" id="myTabContent">

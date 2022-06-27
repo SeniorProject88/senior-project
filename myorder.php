@@ -14,14 +14,7 @@ function getorder($table, $where){
     return $getAllData;
 }
 
-
 $orders = getorder('orders' , " customer_id = $customer_id"); 
-/*$order_id = $orders[0]['id'];
-echo '<pre>';
-print_r($orders);
-echo '</pre>';
-die;*/
-
 
 ?>
 <!DOCTYPE html>
@@ -136,7 +129,7 @@ die;*/
                     <div class="col-3">  
                         <?php $products = getProductsByOrder($order['id']);
                          for($i=0 ; $i<count($products) ;$i++ ){ ?>
-                         <p class="text-white"> <?php echo $products[$i]['name'] ;?> </p> 
+                         <p class="text-white"><span class="fw-bold">(<?php echo  $products[$i]['quantity'] ?>)</span>  <?php echo $products[$i]['name'] ;?> </p> 
                         <?php  } ?> 
                     </div>
                 </div>
@@ -180,15 +173,7 @@ die;*/
                         <button class="btn btn-success btn-lg">
                         <?php echo "Deliverd"; ?> </button> <?php }
                     ?> 
-               
-                
-            
-                <!-- <ul id="progressbar">
-                    <li class="step0 active " id="step1">Ordered</li>
-                    <li class="step0 active text-center" id="step2">Shipped</li>
-                    <li class="step0 active text-right" id="step3">On the way</li>
-                    <li class="step0 text-right" id="step4">Delivered</li>
-                </ul> -->
+          
             </div>
             
 

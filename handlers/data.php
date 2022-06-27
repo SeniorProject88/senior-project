@@ -12,8 +12,4 @@ products.price AS ProductPrice,
 products.description  AS ProudctDescription,
 products.Expire_Date   AS ProudctExpire_Date  ,img");
 
-
-/* echo '<pre>';
-print_r($news);
-echo '</pre>'; */
 ?>

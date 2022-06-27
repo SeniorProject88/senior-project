@@ -88,27 +88,7 @@
 				</div>
 			</div>
 		
-		<!-- single home slider -->
-	<!--	<div class="single-homepage-slider homepage-bg-1">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12 col-lg-7 offset-lg-1 offset-xl-0">
-						<div class="hero-text">
-							<div class="hero-text-tablecell">
-								<p class="subtitle">Trusted & Organic</p>
-								<h1>Welcome to</h1>
-							
-								<div class="hero-btns">
-									<a href="shop.php" class="boxed-btn">Fruit Collection</a>
-									<a href="contact.php" class="bordered-btn">Contact Us</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		
+		<!-- single home slider -->	
 	
 	</div>
 	<!-- end home page slider -->
@@ -124,8 +104,8 @@
 							<i class="fas fa-shipping-fast"></i>
 						</div>
 						<div class="content">
-							<h3>Free Shipping</h3>
-							<p>When order over $75</p>
+							<h3>Home Delivery</h3>
+							<p>Fast and safe delivery</p>
 						</div>
 					</div>
 				</div>
@@ -143,11 +123,11 @@
 				<div class="col-lg-4 col-md-6">
 					<div class="list-box d-flex justify-content-start align-items-center">
 						<div class="list-icon">
-							<i class="fas fa-tag"></i>
+						<i class="fas fa-briefcase"></i>
 						</div>
 						<div class="content">
-							<h3>Coupon </h3>
-							<p>Use the Coupon Code</p>
+							<h3>Custom Box </h3>
+							<p>Encapsulated safe products</p>
 						</div>
 					</div>
 				</div>
@@ -156,37 +136,6 @@
 		</div>
 	</div>
 	<!-- end features list section -->
-
-	<!-- product section -->
-	<!-- <div class="testimonail-section mt-80 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-10 offset-lg-1 text-center">
-				
-					<div class="testimonial-sliders">
-					<?php foreach($products as $product):?>
-						<div class="single-testimonial-slider">
-							<div class="product-img">
-							<div class="client-avater2" > <img src="<?= $product['img']?>  " /> </div>
-							<div class="client-meta ">
-								<h4><?= $product['name']?> </h4>
-								<p class="ttestimonial-body">
-								<?= $product['description']?></p>
-								<h3><?= $product['price']?> </h3>
-								
-								<a href="cart.php" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-								
-							</div>
-							</div>
-						</div>
-						<?php endforeach; ?>
-					</div>
-					
-				</div>
-			</div>
-		</div>
-	</div> -->
-	<!-- end product section -->
 
 	<!-- cart banner section -->
 	<section class="cart-banner pt-100 pb-100">

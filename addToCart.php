@@ -22,13 +22,7 @@ if(isset($_SESSION['cart'])){
     $_SESSION['cart'] = [];
     $_SESSION['cart'][$productID][$user_id]  = $product;
 }
-// echo "<pre>";
-// print_r($_SESSION['cart']);
-// die;
 
 $_SESSION['successAddToCart'] ="add to cart ";
-
-
-
 header("Location: Products.php");
 ?>

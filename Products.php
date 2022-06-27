@@ -111,7 +111,6 @@ $products=getWhere('products', 'status = 1');
 								<p class="product-price"><span></span> <?= $product['price']?>$</p>
 									<a href="addToCart.php?id=<?=$product['id']?>" class="cart-btn">
 								<i class="fas fa-shopping-cart"></i> Add to Cart</a>
-
 							</div>
 					</div>
 				<?php endforeach; ?>

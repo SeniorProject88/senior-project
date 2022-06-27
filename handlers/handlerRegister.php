@@ -11,9 +11,9 @@
 
         //name validate 
         if(!required($name)){
-            $errors[]= "plz input your name, name is required";
+            $errors[]= "name is required";
         }elseif(!minRange($name,3)){
-            $errors[]= "name must be larger than 3 letters";
+            $errors[]= "name must be larger than 2 letters";
 
         }elseif(!maxRange($name,20)){
                 $errors[]= "name must be less than 20 letters";
@@ -24,15 +24,15 @@
 
         //email validate 
         if(!required($email)){
-            $errors[]= "plz input your email, email is required";
+            $errors[]= "email is required";
         }elseif(!minRange($email,10)){
             $errors[]= "email must be larger than 4 letters";
 
         }elseif(!maxRange($email,60)){
                 $errors[]= "email must be less than 60 letters";
-        }/*elseif(!emailvalidate($email)){
-            $errors[]= "plz enter valid email";
-        }*/
+        }elseif(!emailvalidate($email)){
+            $errors[]= "enter valid email";
+        }
 
         //password validate 
        
@@ -53,11 +53,11 @@
 
         //phone validate 
         if(!required($phone)){
-            $errors[]= "plz input your phone, phone is required";
+            $errors[]= "phone is required";
         }elseif(!minRange($phone,4)){
             $errors[]= "phone must be larger than 4 numbers";
 
-        }elseif(!maxRange($phone,30)){
+        }elseif(!maxRange($phone,20)){
                 $errors[]= "phone must be less than 21 numbers";
         }elseif(!is_numeric($phone)){
             $errors[]= "phone must be number";
@@ -66,9 +66,9 @@
 
         //country validate 
         if(!required($country)){
-            $errors[]= "plz input your country, country is required";
+            $errors[]= "country is required";
         }elseif(!minRange($country,3)){
-            $errors[]= "country must be larger than 3 letters";
+            $errors[]= "country must be larger than 2 letters";
 
         }elseif(!maxRange($country,21)){
                 $errors[]= "country must be less than 21 letters";
@@ -77,7 +77,7 @@
     }
         //state validate 
         if(!required($state)){
-            $errors[]= "plz input your state, state is required";
+            $errors[]= "state is required";
         }elseif(!minRange($state,3)){
             $errors[]= "state must be larger than 3 letters";
 
@@ -90,7 +90,7 @@
 
         //zip validate 
         if(!required($zip)){
-            $errors[]= "plz input your zip, zip is required";
+            $errors[]= "zip is required";
         }elseif(!minRange($zip,3)){
             $errors[]= "zip must be larger than 3 numbers";
 
@@ -103,7 +103,7 @@
 
         //address validate 
         if(!required($address)){
-            $errors[]= "plz input your address, address is required";
+            $errors[]= "address is required";
         }elseif(!minRange($address,3)){
             $errors[]= "address must be larger than 3 letters";
 

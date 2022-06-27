@@ -20,8 +20,6 @@
     if(empty($errors)){
         $table = getRoleNameByRoleId($role_id)[0]['name'];
         $user = login($table, $email , $password);
-        // echo "<pre>";
-        // print_r($user);die;
         if($user) {
             $_SESSION['user'] = $user;
             header('location: ../index.php') ;

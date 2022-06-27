@@ -3,12 +3,6 @@ require_once('handlers/db.php');
 require_once('handlers/data.php');
 $deleivery_id = $_SESSION['user'][0]['id'];
 $orders = getWhere('orders' , "delivery_id = $deleivery_id");
-
-    
-/* echo '<pre>';
-print_r( $products[0]['name']);
-echo '</pre>';
-die; */
 ?>
 
 <!DOCTYPE html>
@@ -90,7 +84,7 @@ die; */
   display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 200px;
+  min-width: 123px;
   box-shadow: 0px 8px 1px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
@@ -232,7 +226,8 @@ function GoToPage($page)
                                                 <div class="dropdown-content text-black-50">
                                                     <?php $products = getProductsByOrder($order['id']);
                                                     for($i=0 ; $i<count($products) ;$i++ ){ ?>
-                                     <p> <?php echo $products[$i]['name'] ;?> <span>#<?php echo  $products[$i]['quantity']?></span></p> 
+                                     <p class="text-wrap"><span class="fw-bold">(<?php echo  $products[$i]['quantity']?>)</span> <?php echo $products[$i]['name'] ;?> </p> 
+                                     <hr>
                                               <?php  } ?> 
                                                 </div>
                                                 </div> 

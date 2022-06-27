@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.3.0-dev+20220601.866861edac
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2022 at 05:51 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.3
+-- Generation Time: Jun 27, 2022 at 07:39 PM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 8.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `email`, `password`, `role_id`, `name`) VALUES
-(3, 'admin@gmail.com', '123456789', 1, 'adminn');
+(3, 'admin@gmail.com', '123456789', 1, 'admin');
 
 -- --------------------------------------------------------
 
@@ -63,21 +63,6 @@ INSERT INTO `categorys` (`id`, `name`, `status`, `created_at`) VALUES
 (1, 'Hand made', 1, '2022-05-26 14:07:14'),
 (2, 'Sponsered Companies', 1, '2022-05-26 14:07:45'),
 (3, 'Embroidery', 1, '2022-05-26 14:08:01');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `contacts`
---
-
-CREATE TABLE `contacts` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `subject` varchar(255) NOT NULL,
-  `message` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -162,7 +147,7 @@ CREATE TABLE `orders` (
   `id` int(40) NOT NULL,
   `total_price` varchar(10000) NOT NULL,
   `datetime` datetime NOT NULL DEFAULT current_timestamp(),
-  `status` tinyint(1) NOT NULL DEFAULT 0,
+  `status` enum('0','1','2') DEFAULT NULL,
   `customer_id` int(20) NOT NULL,
   `delivery_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -172,7 +157,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `total_price`, `datetime`, `status`, `customer_id`, `delivery_id`) VALUES
-(11, '130', '2022-06-24 16:35:42', 1, 25, 1);
+(65, '350', '2022-06-27 10:29:50', '2', 20, 1);
 
 -- --------------------------------------------------------
 
@@ -183,16 +168,18 @@ INSERT INTO `orders` (`id`, `total_price`, `datetime`, `status`, `customer_id`, 
 CREATE TABLE `order_products` (
   `id` int(11) NOT NULL,
   `order_id` int(40) NOT NULL,
-  `product_id` int(40) NOT NULL
+  `product_id` int(40) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `order_products`
 --
 
-INSERT INTO `order_products` (`id`, `order_id`, `product_id`) VALUES
-(1, 11, 63),
-(6, 11, 64);
+INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `quantity`) VALUES
+(28, 65, 79, 1),
+(29, 65, 71, 5),
+(30, 65, 78, 3);
 
 -- --------------------------------------------------------
 
@@ -217,9 +204,16 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `img`, `description`, `expire_date`, `status`, `owner_id`, `category_id`) VALUES
-(63, 'test', '14', 'assets/img/products/22,06,221736343867108482.jpg', 'Ben Zhaiman coffee', '2022-07-09', 1, 8, 3),
-(64, 'test', '3', 'assets/img/products/22,06,221736343883063630.jpg', 'Ben Zhaiman coffee', '2022-07-09', 1, 8, 2),
-(65, 'test', '14', 'assets/img/products/22,06,221736361803632319.jpg', 'Ben Zhaiman coffee', '2022-07-09', 0, 8, 2);
+(70, 'Labneh', '7', 'assets/img/products/22,06,271736808689907104.jpg', 'Original Labneh from Al Jibrini', '2022-09-10', 1, 17, 2),
+(71, 'coffee', '20', 'assets/img/products/22,06,271736808762881159.jpg', '1 packet Ben Zhaiman coffee', '2022-09-06', 1, 17, 2),
+(72, 'zeta sauce', '25', 'assets/img/products/22,06,271736808823403045.jpg', 'Five flavors of zeta sauce', '2022-08-06', 1, 17, 2),
+(73, 'sewing box', '10', 'assets/img/products/22,06,271736808970256592.jpg', 'Includes all thread colors', '2022-09-03', 1, 17, 3),
+(77, 'embroidered plate', '20', 'assets/img/products/22,06,271736809233531902.jpg', 'hand embroidered straw bowl', '2022-09-30', 1, 17, 3),
+(78, 'embroidered shawl', '40', 'assets/img/products/22,06,271736809299774629.jpg', 'Blue hand embroidered shawl', '2022-10-06', 1, 17, 3),
+(79, 'embroidered dress', '100', 'assets/img/products/22,06,271736809355831662.jpg', 'Red hand embroidered dress', '2022-09-22', 1, 17, 3),
+(80, 'Grape leaves', '25', 'assets/img/products/22,06,271736809444588635.jpg', 'Five bottles of grape leaves', '2022-09-09', 1, 17, 1),
+(81, 'tomato sauce', '25', 'assets/img/products/22,06,271736809509104058.jpg', 'Five cans of tomato sauce', '2022-12-08', 1, 17, 1),
+(82, 'cake molds', '40', 'assets/img/products/22,06,271736809589171942.jpg', 'Three sizes of Eid cake molds', '2022-10-06', 1, 17, 1);
 
 -- --------------------------------------------------------
 
@@ -243,11 +237,7 @@ CREATE TABLE `product_owners` (
 --
 
 INSERT INTO `product_owners` (`id`, `name`, `email`, `password`, `phone`, `company_name`, `company_id`, `role_id`) VALUES
-(8, 'ahmad', 'ahmad@gmail.com', '123456789', '+962796388393', 'zhiman coffee', 0, 3),
-(11, 'dania ratrout', 'dania@gmail.com', '123456789', '0568326110', 'sanyora', 123, 3),
-(14, '11111111', 'daniasd@gmail.com', '123456789', '0568326110', 'paltel', 123, 3),
-(15, '111111111', 'daniwwwa@gmail.com', '123456789', '0568326110', 'paltel', 123, 3),
-(16, 'dania ratrout', 'daaania@gmail.com', '123456789', '0568326110', 'paltel', 123, 3);
+(17, 'dania ratrout', 'dana@gmail.com', 'Aa12345678', '0568326110', 'zeeta', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -346,12 +336,6 @@ ALTER TABLE `admin`
 -- Indexes for table `categorys`
 --
 ALTER TABLE `categorys`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `contacts`
---
-ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -454,12 +438,6 @@ ALTER TABLE `categorys`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `contacts`
---
-ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
@@ -475,31 +453,31 @@ ALTER TABLE `delivery`
 -- AUTO_INCREMENT for table `news`
 --
 ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `product_owners`
 --
 ALTER TABLE `product_owners`
-  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(40) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -517,7 +495,7 @@ ALTER TABLE `sponsored`
 -- AUTO_INCREMENT for table `team`
 --
 ALTER TABLE `team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `validity`
@@ -587,3 +565,6 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
