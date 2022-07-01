@@ -101,6 +101,7 @@ $news=getWhere('news', 'status = 1');
                             </div>  
                             <div class="text-center mt-5">
                                 <button name="addTeam" type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn btn-dark" href="index.php">Cancel</a>
                             </div>
                         </form>
                     </div>

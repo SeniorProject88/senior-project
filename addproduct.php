@@ -121,6 +121,7 @@
                             </div>
                             <div class="text-center mt-5">
                                 <button type="submit" class="btn btn-primary">Submit</button>
+                                <a class="btn btn-dark" href="index.php">Cancel</a>
                             </div>
                                 <input type="hidden" name="owner_id" value="<?= $_SESSION['user'][0]['id']?>">
                         </form>

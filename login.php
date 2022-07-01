@@ -95,6 +95,7 @@ if (isset($_POST['login'])) {
 	</div>
         
     <!--login-->
+    
     <section class="login-reg-panel">
         <div class="register-info-box">
             <h2>Don't have an account?</h2>
@@ -134,7 +135,10 @@ if (isset($_POST['login'])) {
         </div>
     </section>
     <!--end login-->
-        
+    <div class="text-start mt-5">
+                    <a class="btn btn-light" href="index.php"><i class="fas fa-arrow-left"></i> Back</a> 
+                    <hr>  
+                            </div>
     <!-- footer -->
     <section class="d-block">
         <?php require_once("./layouts/footer.php")?>

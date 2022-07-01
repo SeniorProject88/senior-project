@@ -175,6 +175,10 @@ function GoToPage($page)
         <div class="row tm-content-row">
                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 tm-block-col">
                     <form method = "POST" >
+                    <div class="text-start mt-5">
+                    <a class="btn btn-dark" href="index.php"><i class="fas fa-arrow-left"></i> Back</a> 
+                    <hr>  
+                            </div>
                         <h2 class="text-center bg-light">Orders list</h2>
                         <div class=" flw">
                             <div class=" flw">

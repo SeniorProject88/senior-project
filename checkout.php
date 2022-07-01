@@ -8,13 +8,9 @@
 	}else{
 		$user = $_SESSION['user'][0];
 	}
-	// echo "<pre>";
-	// print_r($_SESSION);die;
-
 	$roles = getAll('roles');
-
 	$sponsored=getAll('sponsored');
-
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -252,6 +248,7 @@
 						</table>
 						<div class="cart-buttons">
 							<a href="handlers/addOrder.php" class="boxed-btn black">Place Order</a>
+							<a href="cart.php" class="cart-btn">Back</a>
 						</div>
 					</div>
 				</div>

@@ -90,7 +90,9 @@ $orders = getorder('orders' , " customer_id = $customer_id");
         ?> 
 	 <?php foreach($orders as $order):?>
                  <?php $customer = getWhere('customer' , "id = ". $order['customer_id'])[0];?>
+                 
        <div class="myorder"> 
+       
  <div class="card">
      
 

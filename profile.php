@@ -125,7 +125,7 @@ $roles = getAll('roles');
                                                     <?php endforeach;?>
                                                     <div class="text-center mt-5">
                                                         <button type="submit" class="btn btn-primary">Submit</button>
-                                                        <a class="btn btn-dark" href="#">Back</a>
+                                                        <a class="btn btn-dark" href="index.php">Cancel</a>
                                                     </div> 
                                                 </form>
 

@@ -12,7 +12,6 @@ $roles = getAll('roles');
 $products=getAll('products');
 $categorys=getWhere('categorys', 'status = 1');
 $user_id = $_SESSION['user'][0]['id'];
-
 ?>
 
 <!DOCTYPE html>
@@ -89,7 +88,7 @@ $user_id = $_SESSION['user'][0]['id'];
 									$k=1;
 									foreach($_SESSION['cart'] as $i => $product):
 								?>
-									<?php if(!empty($product[$user_id][0])){?>
+									<?php if(!empty($product[$user_id][0]) ){?>
 											<tr class="table-body-row">
 												<td class="product-remove"><a href="deleteFromCart.php?id=<?=$i?>"><i class="far fa-window-close"></i></a></td>
 												<td class="product-image"><img src="<?= $product[$user_id][0]['img']?>" alt="" ></td>
@@ -97,8 +96,8 @@ $user_id = $_SESSION['user'][0]['id'];
 												<td class="product-price"><?= $product[$user_id][0]['price']?>$</td>
 												<td class="product-quantity">
 													<input type="number" name="quantity<?= $k++ ; ?>" class="count-<?= $product[$user_id][0]['id']?>" 
-													onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="0" min="1" oninput="validity.valid||(value='');">
-
+													onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="" min="1" oninput="validity.valid||(value='');">
+															
 												</td>  
 												<input type="hidden" class="price-<?= $product[$user_id][0]['id']?>" value="<?= $product[$user_id][0]['price']?>"> 
 												<td class="product-total-<?= $product[$user_id][0]['id']?> total-order"><span>0</span>$</td>
@@ -117,8 +116,6 @@ $user_id = $_SESSION['user'][0]['id'];
 
 				<div class="col-lg-4">
 					<div class="total-section">
-
-					
 							<table class="total-table">
 							<thead class="total-table-head">
 								<tr class="table-total-row">
@@ -147,8 +144,9 @@ $user_id = $_SESSION['user'][0]['id'];
 									</tr>
 								</tbody>
 							</table>
-							<div class="cart-buttons">
+							<div class="cart-buttons text-center">
 								<button name="checkout" class="cart-btn">Check Out</button>
+								<a href="Products.php" class="cart-btn">Back</a>
 							</div>
 						
 					
