@@ -12,6 +12,8 @@ $roles = getAll('roles');
 $products=getAll('products');
 $categorys=getWhere('categorys', 'status = 1');
 $user_id = $_SESSION['user'][0]['id'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +72,15 @@ $user_id = $_SESSION['user'][0]['id'];
 				<div class="col-lg-8 col-md-12">
 				
 					<div class="cart-table-wrap">
-					
+					<?php 
+                    if(isset($_SESSION['error'])){ ?>
+                        <div class="alert alert-danger h-10 align-items-center mb-5">
+                            <?= $_SESSION['error']; ?>
+                        </div>
+                    <?php 
+                        unset($_SESSION['error']);    
+                }
+                ?>
 						<table class="cart-table">
 							<thead class="cart-table-head">
 								<tr class="table-head-row">
@@ -96,7 +106,7 @@ $user_id = $_SESSION['user'][0]['id'];
 												<td class="product-price"><?= $product[$user_id][0]['price']?>$</td>
 												<td class="product-quantity">
 													<input type="number" name="quantity<?= $k++ ; ?>" class="count-<?= $product[$user_id][0]['id']?>" 
-													onchange="getTotal(<?= $product[$user_id][0]['id']?>)" 	placeholder="" min="1" oninput="validity.valid||(value='');">
+													oninput="getTotal(<?= $product[$user_id][0]['id']?>)" placeholder="" min="1" oninput="validity.valid||(value='');">
 															
 												</td>  
 												<input type="hidden" class="price-<?= $product[$user_id][0]['id']?>" value="<?= $product[$user_id][0]['price']?>"> 
@@ -183,9 +193,9 @@ $user_id = $_SESSION['user'][0]['id'];
 	<!-- js files -->
 	<script>
 		let products = <?= json_encode($products)?>;
-
+		
 		function getTotal(id){
-
+			
 			let quantity = $(`.count-${id}`).val() ;
 			let price = $(`.price-${id}`).val();
 			$(`.product-total-${id} span`).html(quantity * price)

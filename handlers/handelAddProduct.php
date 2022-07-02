@@ -2,7 +2,7 @@
     session_start();
     require('function.php') ;
     require('db.php') ;
-   
+
     if($_SERVER['REQUEST_METHOD']=='POST'){
         $data = $_SESSION;
 
@@ -13,22 +13,22 @@
         //name validate 
         if(!required($name)){
             $errors[]= "name is required";
-        }elseif(!minRange($name,2)){
-            $errors[]= "name must be larger than 2 letters";
+            }elseif(!minRange($name,2)){
+                $errors[]= "name must be larger than 2 letters";
 
-        }elseif(!maxRange($name,20)){
-                $errors[]= "name must be less than 20 letters";
+            }elseif(!maxRange($name,20)){
+                    $errors[]= "name must be less than 20 letters";
+            }
+            elseif(is_numeric($name)){
+                $errors[]= "name must be a string";
         }
-        elseif(is_numeric($name)){
-            $errors[]= "name must be a string";
-    }
         //description validate 
         if(!required($description)){
             $errors[]= "description is required";
         }
         elseif(is_numeric($description)){
             $errors[]= "description must be a string";
-    }
+        }
 
         //expire_date validate  
         $date = date('20y-m-d');
@@ -49,10 +49,12 @@
         }
         elseif(!is_numeric($price)){
             $errors[]= "price must be number";
-    }elseif(!positive($price)){
-        $errors[]= "price not acceptable!";
-}
-       
+        }elseif(!positive($price)){
+            $errors[]= "price not acceptable!";
+        }
+        if(empty($_FILES['img']['name'])){
+            $errors[]= "image is required";
+        }
         if(empty($errors)){  
             $img=$_FILES['img'];
             $imgName=$img['name'];
@@ -78,8 +80,6 @@
             $_SESSION['errors']=$errors ;
             header('location: ../addproduct.php') ;
         } 
-           
-        
 }
     else {
         header('location: ../Products.php') ;

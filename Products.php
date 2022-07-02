@@ -3,8 +3,11 @@ require_once('handlers/db.php');
 require_once('handlers/data.php');
 require_once('layouts/classes.php');
 $sponsored=getAll('sponsored');
-$products=getWhere('products','status=1');
-$products=getWhere('products', 'status = 1');
+if(!empty($_POST['search'])){
+		$products=getWhere('products', "name like '%{$_POST['search']}%' OR description like '%{$_POST['search']}%' AND status = 1");
+}else{
+	$products=getWhere('products', 'status = 1');
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,46 +77,56 @@ $products=getWhere('products', 'status = 1');
 	<!-- products -->
 	<div class="product-section mt-150 mb-150">
 		<div class="container">
-
+			<form action="Products.php" method="POST">
+				<input type="search" name="search">
+				<input type="submit" value="search">
+				
+			</form>
 			<div class="row">
-                <div class="col-md-12">
-				<?php 
-                    if(isset($_SESSION['create'])){ ?>
-                        <div class="aletr alert-success h-10
-														d-flex justify-content-center align-items-center mb-5">
-                            <?= $_SESSION['create']; ?>
-                        </div>
-                    <?php 
-                        unset($_SESSION['create']);    
-                }
-                ?>
-                    <div class="product-filters">
-                        <ul>
-						<li data-filter="*" class="filter-active">All</li>
-            <?php  foreach($categorys as $category):?>
-								<li data-filter=".<?= $category['id']?>"> <?= $category['name']?> </li>
-						<?php endforeach; ?>
-                          
-                        </ul>
-                    </div>
-                </div>
-            </div>
+				<div class="col-md-12">
+					<?php 
+							if(isset($_SESSION['create'])){ ?>
+									<div class="aletr alert-success h-10
+											d-flex justify-content-center align-items-center mb-5">
+											<?= $_SESSION['create']; ?>
+									</div>
+							<?php 
+									unset($_SESSION['create']);    
+					}
+					?>
+							<div class="product-filters">
+								<ul>
+									<li data-filter="*" class="filter-active">All</li>
+									<?php  foreach($categorys as $category):?>
+											<li data-filter=".<?= $category['id']?>"> <?= $category['name']?> </li>
+									<?php endforeach; ?>
+									
+								</ul>
+							</div>
+						</div>
+				</div>
 
 			<div class="row product-lists productsContainer">
-			<?php foreach($products as $product):?>
-					<div class="col-lg-4 col-md-6 text-center mix <?= $product['category_id']?>">
-							<div class="single-product-item">
-								<div class="product-image">
-									<a href="#"><img src="<?= $product['img']?>" alt=""></a>
-								</div>
-								<h3><?= $product['name']?></h3>
-								<p><?= $product['description']?></p>
-								<p class="product-price"><span></span> <?= $product['price']?>$</p>
-									<a href="addToCart.php?id=<?=$product['id']?>" class="cart-btn">
-								<i class="fas fa-shopping-cart"></i> Add to Cart</a>
+				<?php if(count($products) > 0):?>
+					<?php foreach($products as $product):?>
+							<div class="col-lg-4 col-md-6 text-center mix <?= $product['category_id']?>">
+									<div class="single-product-item">
+										<div class="product-image">
+											<a href="#"><img src="<?= $product['img']?>" alt=""></a>
+										</div>
+										<h3><?= $product['name']?></h3>
+										<p><?= $product['description']?></p>
+										<p class="product-price"><span></span> <?= $product['price']?>$</p>
+											<a href="addToCart.php?id=<?=$product['id']?>" class="cart-btn">
+										<i class="fas fa-shopping-cart"></i> Add to Cart</a>
+									</div>
 							</div>
-					</div>
-				<?php endforeach; ?>
+					<?php endforeach; ?>
+				<?php else:?>
+					<div class="col-lg-4 col-md-6 text-center ">
+								There isn't any product
+						</div>
+				<?php endif;?>
 			</div>
 
 		

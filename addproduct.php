@@ -88,7 +88,7 @@
                                        ?>
                                     
                         <form action="handlers/handelAddProduct.php" method="post" enctype="multipart/form-data">
-														<h3 class="mb-3 text-dark">Add Your Product</h3>
+                            <h3 class="mb-3 text-dark">Add Your Product</h3>
                             <div class="form-group">
                                 <label class=" text-dark">Products Image</label>
                                 <input type="file" name="img" class="form-control">

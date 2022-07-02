@@ -225,14 +225,14 @@ function GoToPage($page)
                                             <td class="text-white"><?= $order['total_price']?>$</td>
                                             <td class="text-white"><?= $order['datetime']?></td>
                                             <td>
-                                         <div class="dropdown">
+                                        <div class="dropdown">
                                                 <button class="dropbtn">show products</button>
                                                 <div class="dropdown-content text-black-50">
                                                     <?php $products = getProductsByOrder($order['id']);
-                                                    for($i=0 ; $i<count($products) ;$i++ ){ ?>
-                                     <p class="text-wrap"><span class="fw-bold">(<?php echo  $products[$i]['quantity']?>)</span> <?php echo $products[$i]['name'] ;?> </p> 
-                                     <hr>
-                                              <?php  } ?> 
+                                                        for($i=0 ; $i<count($products) ;$i++ ){ ?>
+                                                        <p class="text-wrap px-2 text-center"><span class="fw-bold">(<?php echo  $products[$i]['quantity']?>)</span> <?php echo $products[$i]['name'] ;?> </p> 
+                                                        <hr>
+                                                    <?php  } ?> 
                                                 </div>
                                                 </div> 
                                             </td>
