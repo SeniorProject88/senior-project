@@ -42,7 +42,13 @@ if(!empty($_POST['search'])){
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
-
+	<style>
+.search{
+	position:absolute;
+	padding-top: -63px;
+    padding-left: 1026px;
+}
+</style>
 </head>
 <body>
 	
@@ -57,6 +63,24 @@ if(!empty($_POST['search'])){
 	<!-- navbar -->
 			<?php require_once("./layouts/navbar.php")?>
 	<!-- end navbar -->
+	<!-- search area -->
+	<div class="search-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<span class="close-btn"><i class="fas fa-window-close"></i></span>
+					<div class="search-bar">
+						<div class="search-bar-tablecell">
+							<h3>Search For:</h3>
+							<input type="text" placeholder="Keywords">
+							<button type="submit">Search <i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end search arewa -->
 	
 	
 	<!-- breadcrumb-section -->
@@ -68,7 +92,15 @@ if(!empty($_POST['search'])){
 						<p>High quality & reliability</p>
 						<h1>Products</h1>
 					</div>
+					
 				</div>
+			</div>
+			<div class="search">
+			<form action="Products.php" method="POST">
+				<input type="search" name="search" placeholder="search product . .">
+				<button type="submit" value="search" class=" btn bg-primary btn-sm text-white text-end"><i class="fas fa-search"></i></button>
+				
+			</form>
 			</div>
 		</div>
 	</div>
@@ -76,12 +108,8 @@ if(!empty($_POST['search'])){
 
 	<!-- products -->
 	<div class="product-section mt-150 mb-150">
-		<div class="container">
-			<form action="Products.php" method="POST">
-				<input type="search" name="search">
-				<input type="submit" value="search">
-				
-			</form>
+			<div class="container">
+			
 			<div class="row">
 				<div class="col-md-12">
 					<?php 

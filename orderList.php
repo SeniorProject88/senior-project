@@ -2,7 +2,17 @@
 require_once('handlers/db.php');
 require_once('handlers/data.php');
 $deleivery_id = $_SESSION['user'][0]['id'];
-$orders = getWhere('orders' , "delivery_id = $deleivery_id");
+function getorderlist($table, $where){
+    global $conn ;
+    $getAll = "SELECT * FROM $table where $where 
+    ORDER BY datetime DESC ;";
+    $getAll = mysqli_query($conn,$getAll);
+    $getAllData = mysqli_fetch_all($getAll,MYSQLI_ASSOC);
+
+    return $getAllData;
+}
+
+$orders = getorderlist('orders' , " delivery_id = $deleivery_id"); 
 ?>
 
 <!DOCTYPE html>

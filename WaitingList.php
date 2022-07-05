@@ -3,6 +3,18 @@ require_once('handlers/db.php');
 require_once('handlers/data.php');
 $products=getAll('products');
 $categorys=getWhere('categorys', 'status = 1');
+function getwaiting($table){
+        global $conn ;
+        $getAll = "SELECT * FROM $table ORDER BY created_at DESC ;";
+        $getAll = mysqli_query($conn,$getAll);
+        $getAllData = mysqli_fetch_all($getAll,MYSQLI_ASSOC);
+
+        return $getAllData;
+    
+}
+
+$products = getwaiting('products'); 
+
 ?>
 
 <!DOCTYPE html>
